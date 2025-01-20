@@ -20,8 +20,14 @@ export default function Profile() {
     }
 
     const [currentUser] = useState<User>(fakeUser);
+    const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
 
-    return <div className="profile-container">
+    const openProfile = () => {
+        console.log("Open profil !");
+        setIsProfileOpen(true);
+    }
+
+    return <div className="profile-container" onClick={openProfile}>
         <div className="avatar">
             {currentUser.hasProfilPicture && currentUser.profilPicture ? 
                 <img src={currentUser.profilPicture} /> :
@@ -35,5 +41,7 @@ export default function Profile() {
             <div className="mail">{currentUser.email}</div>
         </div>
         <ArrowDropDown className='icon'/>
+
+        {/* Todo: implement profil dropdown*/}
     </div>
 }
