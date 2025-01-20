@@ -1,8 +1,10 @@
-import './App.css'
+import './constants/style/color.css';
+import './constants/style/font.css';
+import './App.css';
 
-function App() {
+export default function App() {
 
-  return <div className='app-container'>Hello world</div>
+  return <div className='app-container'>
+    Hello world
+  </div>
 }
-
-export default App
