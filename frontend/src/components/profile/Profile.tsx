@@ -31,7 +31,7 @@ export default function Profile() {
         <div className="avatar">
             {currentUser.hasProfilPicture && currentUser.profilPicture ? 
                 <img src={currentUser.profilPicture} /> :
-                <div className="no-avatar" style={{backgroundColor: generateColorFromName(currentUser.lastname)}}>
+                <div className="no-avatar" style={{backgroundColor: generateColorFromName(currentUser.firstname + currentUser.lastname)}}>
                     {generateInitials(currentUser)}
                 </div>
             }
