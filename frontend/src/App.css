@@ -2,4 +2,6 @@
     height: 100vh;
     width: 100vw;
     background-color: var(--secondary-400);
+    color: var(--text-primary);
+    font-size: var(--p);
 }
