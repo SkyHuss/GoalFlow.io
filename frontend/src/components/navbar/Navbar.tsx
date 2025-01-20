@@ -1,6 +1,7 @@
 import { LightMode, NotificationsOutlined } from '@mui/icons-material'
 import NavButton from '../generic/navButton/NavButton'
 import './Navbar.css'
+import Profile from '../profile/Profile'
 
 export default function Navbar() {
 
@@ -22,7 +23,7 @@ export default function Navbar() {
                 <NavButton icon={LightMode} onClick={toggleColorTheme}/>
                 <NavButton icon={NotificationsOutlined} notification={3} onClick={displayNotifications}/>
             </div>
-            <div className="profil">emplacement du profil</div>
+            <Profile />
         </div>
     </div>
 }

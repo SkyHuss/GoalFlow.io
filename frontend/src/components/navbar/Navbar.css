@@ -16,7 +16,6 @@
 .navbar-container .nav-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 
 .navbar-container .nav-actions .nav-buttons {
