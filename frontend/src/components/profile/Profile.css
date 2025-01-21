@@ -69,3 +69,14 @@
     border: solid 1px var(--secondary-100);
     padding: 1px 0;
 }
+
+@media screen and (max-width: 675px) {
+    .profile-container .profile-dropdown-container {
+        top: unset;
+        right: unset;
+        left: 15px;
+        bottom: 90%;
+        background-color: var(--secondary-200);
+
+    }
+}

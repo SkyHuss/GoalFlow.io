@@ -3,6 +3,8 @@
     background-color: var(--secondary-300);
     padding: 10px;
     transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar-container.collapsed {
@@ -35,4 +37,21 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.sidebar-container .footer {
+    font-size: var(--xx-small);
+    color: var(--text-secondary);
+    margin-top: auto;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-top: solid 1px var(--text-secondary);
+}
+
+@media screen and (max-width: 675px) {
+    .sidebar-container {
+        display: none;
+    }
 }

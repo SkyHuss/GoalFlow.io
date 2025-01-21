@@ -10,6 +10,7 @@ import Analytics from './pages/analytics/Analytics';
 import History from './pages/history/History';
 import FocusMode from './pages/focusMode/FocusMode';
 import PersonalInfo from './pages/profile/personalInfo/PersonalInfo';
+import MobileSidebar from './components/sidebar/mobileSidebar/MobileSidebar';
 
 function AppLayout() {
   return (
@@ -17,6 +18,7 @@ function AppLayout() {
       <Navbar />
       <div className="sidebar-and-content-container">
         <Sidebar />
+        <MobileSidebar />
         <div className="content">
           <Outlet />
         </div>

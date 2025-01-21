@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { User } from '../../models/User'
-import './Profile.css'
 import { ArrowDropDown, Diversity1, ExitToApp, Payments, Person, Settings } from '@mui/icons-material';
 import { generateColorFromName } from '../../utils/color';
+import { User } from '../../models/User'
 import ProfileItem from './profileItem/ProfilItem';
+import './Profile.css'
+
 
 export default function Profile() {
 

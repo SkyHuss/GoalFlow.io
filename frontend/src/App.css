@@ -9,8 +9,15 @@
 .app-container .sidebar-and-content-container {
     height: calc(100% - 80px);
     display: flex;
+    position: relative;
 }
 
 .app-container .sidebar-and-content-container .content {
     width: 100%;
+}
+
+@media screen and (max-width: 675px) {
+    .app-container .sidebar-and-content-container {
+        height: 100vh;
+    }
 }

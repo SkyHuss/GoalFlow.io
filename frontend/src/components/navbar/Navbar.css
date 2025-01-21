@@ -25,3 +25,9 @@
     padding-right: 20px;
     border-right: solid 1px var(--secondary-100);
 }
+
+@media screen and (max-width: 675px) {
+    .navbar-container {
+        display: none;
+    }
+}

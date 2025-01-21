@@ -24,5 +24,12 @@ export default function Sidebar() {
                 <SidebarItem key={item.label} item={item} isCollapsed={isCollapsed} />
             ))}
         </div>
+
+        <div className="footer">
+            {!isCollapsed && 
+                <>© 2025 - GONZALES FLorian <br /> All rights reserved</>
+            }
+
+        </div>
     </div>
 }
