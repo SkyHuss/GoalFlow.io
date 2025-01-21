@@ -1,0 +1,21 @@
+.sidebar-item-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    height: 40px;
+    border-radius: 8px;
+    color: var(--text-secondary);
+}
+
+.sidebar-item-container:hover {
+    color: var(--text-primary);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sidebar-item-container.active {
+    background-color: var(--primary-400);
+    color: var(--text-primary);
+    font-weight: bold;
+}

@@ -1,0 +1,38 @@
+.sidebar-container {
+    width: 270px;
+    background-color: var(--secondary-300);
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+.sidebar-container.collapsed {
+    width: 70px;
+}
+
+.sidebar-container .collapse-button {
+    display: flex;
+    justify-content: end;
+    color: var(--text-secondary);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: solid 1px var(--text-secondary);
+
+}
+
+.sidebar-container.collapsed .collapse-button {
+    justify-content: center;
+}
+
+.sidebar-container .collapse-button:hover {
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.sidebar-container .global-menu-container {
+    border-bottom: solid 1px var(--text-secondary);
+    padding-top: 10px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

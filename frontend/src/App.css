@@ -5,3 +5,12 @@
     color: var(--text-primary);
     font-size: var(--p);
 }
+
+.app-container .sidebar-and-content-container {
+    height: calc(100% - 80px);
+    display: flex;
+}
+
+.app-container .sidebar-and-content-container .content {
+    width: 100%;
+}

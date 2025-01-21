@@ -60,11 +60,12 @@ export default function Profile() {
 
         {isProfilOpen && 
             <div className='profile-dropdown-container' ref={dropdownRef}>
-                <ProfileItem icon={Person} label='Personal information' onClick={() => console.log("TODO: implement personnal information page")}/>
-                <ProfileItem icon={Diversity1} label='Contacts' onClick={() => console.log("TODO: implement contacts page")}/>
-                <ProfileItem icon={Payments} label='Subscription' onClick={() => console.log("TODO: implement subscription page")}/>
-                <ProfileItem icon={Settings} label='Settings' onClick={() => console.log("TODO: implement settings page")}/>
-                <ProfileItem icon={ExitToApp} label='Disconnect' onClick={() => console.log("TODO: implement disconnection ")}/>
+                <ProfileItem icon={Person} label='Personal information' link='/personal-info'/>
+                {/* TODO: implementer les autres pages suivantes */}
+                <ProfileItem icon={Diversity1} label='Contacts' link='/'/>
+                <ProfileItem icon={Payments} label='Subscription' link='/'/>
+                <ProfileItem icon={Settings} label='Settings' link='/'/>
+                <ProfileItem icon={ExitToApp} label='Disconnect' link='/'/>
             </div>
         }
     </div>

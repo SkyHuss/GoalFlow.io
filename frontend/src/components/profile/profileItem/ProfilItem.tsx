@@ -1,17 +1,18 @@
 import { SvgIconComponent } from "@mui/icons-material";
 
 import './ProfileItem.css'
+import { NavLink } from "react-router-dom";
 
 interface Props {
     icon: SvgIconComponent
     label: string;
-    onClick: () => void;
+    link: string;
 }
 
-export default function ProfileItem({icon: Icon, label, onClick}: Props) {
+export default function ProfileItem({icon: Icon, label, link}: Props) {
 
-    return <div className="profile-item-container" onClick={onClick}>
+    return <NavLink to={link} className="profile-item-container">
         <Icon className="icon"/>
         {label}
-    </div>
+    </NavLink>
 }
