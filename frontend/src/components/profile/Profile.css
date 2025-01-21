@@ -1,0 +1,83 @@
+.profile-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.profile-container:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.profile-container .avatar {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: solid 1px var(--secondary-300);
+}
+
+.profile-container .avatar .no-avatar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: var(--h4);
+    font-weight: bolder;
+    user-select: none;
+}
+
+.profile-container .avatar img {
+    height: 59px;
+    width: 59px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-container .infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.profile-container .infos .fullname {
+    font-size: var(--h4);
+    font-weight: bolder;
+}
+
+.profile-container .infos .mail {
+    font-size: var(--xx-small);
+    color: var(--text-secondary);
+}
+
+.profile-container .icon {
+    color: var(--text-secondary);
+}
+
+.profile-container .profile-dropdown-container {
+    position: absolute;
+    width: 300px;
+    top: 90%;
+    right: 15px;
+    border-radius: 8px;
+    background-color: var(--secondary-300);
+    border: solid 1px var(--secondary-100);
+    padding: 1px 0;
+    z-index: 10;
+}
+
+@media screen and (max-width: 675px) {
+    .profile-container .profile-dropdown-container {
+        top: unset;
+        right: unset;
+        left: 15px;
+        bottom: 90%;
+        background-color: var(--secondary-200);
+
+    }
+}

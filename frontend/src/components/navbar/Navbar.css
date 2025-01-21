@@ -1,0 +1,33 @@
+.navbar-container {
+    height: 80px;
+    width: 100%;
+    border-bottom: solid 1px var(--secondary-100);
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-container .app-title {
+    font-family: "Jaro", serif;
+    font-size: var(--app-title);
+}
+
+.navbar-container .nav-actions {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-container .nav-actions .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 20px;
+    border-right: solid 1px var(--secondary-100);
+}
+
+@media screen and (max-width: 675px) {
+    .navbar-container {
+        display: none;
+    }
+}
