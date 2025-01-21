@@ -1,4 +1,5 @@
 .profile-container {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 10px;
@@ -56,4 +57,15 @@
 
 .profile-container .icon {
     color: var(--text-secondary);
+}
+
+.profile-container .profile-dropdown-container {
+    position: absolute;
+    width: 300px;
+    top: 90%;
+    right: 15px;
+    border-radius: 8px;
+    background-color: var(--secondary-300);
+    border: solid 1px var(--secondary-100);
+    padding: 1px 0;
 }

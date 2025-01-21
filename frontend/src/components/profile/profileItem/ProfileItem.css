@@ -1,0 +1,21 @@
+.profile-item-container {
+    padding: 20px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 60px;
+    font-size: var(--p);
+    border-bottom: solid 1px var(--text-secondary);
+    transition: all 0.3s;
+}
+
+.profile-item-container:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.profile-item-container:hover .icon {
+    color: var(--text-primary);
+}
