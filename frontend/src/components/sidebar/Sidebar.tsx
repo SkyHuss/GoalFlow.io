@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Sidebar.css';
 import { ExpandCircleDownOutlined, Menu } from '@mui/icons-material';
 
-import { sidebarItems } from '../../constants/menu/sidebar';
+import { sidebarItems } from '../../constants/menu/navigation';
 import SidebarItem from './sidebarItem/SidebarItem';
 
 

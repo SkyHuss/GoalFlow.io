@@ -1,6 +1,3 @@
-import './constants/style/color.css';
-import './constants/style/font.css';
-import './App.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
@@ -11,6 +8,10 @@ import History from './pages/history/History';
 import FocusMode from './pages/focusMode/FocusMode';
 import PersonalInfo from './pages/profile/personalInfo/PersonalInfo';
 import MobileSidebar from './components/sidebar/mobileSidebar/MobileSidebar';
+import BottomNavBar from './components/navbar/bottomNavBar/BottomNavBar';
+import './constants/style/color.css';
+import './constants/style/font.css';
+import './App.css';
 
 function AppLayout() {
   return (
@@ -23,6 +24,7 @@ function AppLayout() {
           <Outlet />
         </div>
       </div>
+      <BottomNavBar />
     </div>
   )
 }

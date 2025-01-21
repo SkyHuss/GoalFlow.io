@@ -1,0 +1,17 @@
+.bottom-navbar-container {
+    display: none;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-color: var(--secondary-300);
+    padding: 10px;
+}
+
+@media screen and (max-width: 675px) {
+    .bottom-navbar-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}

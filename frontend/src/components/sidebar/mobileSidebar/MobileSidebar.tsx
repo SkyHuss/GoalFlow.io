@@ -5,7 +5,7 @@ import Profile from '../../profile/Profile';
 
 export default function MobileSidebar() {
 
-    const [isOpen, setIsOpen] = useState<boolean>(true);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     return <div className={`mobile-sidebar-container ${isOpen && 'open'}`}>
         {!isOpen && 

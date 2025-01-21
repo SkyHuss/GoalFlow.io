@@ -1,0 +1,14 @@
+.bottom-navbar-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    padding: 8px;
+
+}
+
+.bottom-navbar-item-container.active {
+    background-color: var(--primary-400);
+    color: var(--text-primary);    
+}

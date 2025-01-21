@@ -3,14 +3,14 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import './SidebarItem.css'
 
-export interface SidebarItemType {
-    label: string,
+export interface NavigationItem {
+    label?: string,
     icon: SvgIconComponent,
     path: string,
 }
 
 interface Props {
-    item: SidebarItemType,
+    item: NavigationItem,
     isCollapsed: boolean,
 }
 
