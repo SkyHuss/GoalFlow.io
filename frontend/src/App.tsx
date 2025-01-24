@@ -12,20 +12,24 @@ import BottomNavBar from './components/navbar/bottomNavBar/BottomNavBar';
 import './constants/style/color.css';
 import './constants/style/font.css';
 import './App.css';
+import { ServiceProvider } from './context/ServiceProvider';
 
 function AppLayout() {
   return (
-    <div id='app-container' className='app-container'>
-      <Navbar />
-      <div className="sidebar-and-content-container">
-        <Sidebar />
-        <MobileSidebar />
-        <div className="content">
-          <Outlet />
+    <ServiceProvider>
+      <div id='app-container' className='app-container'>
+        <Navbar />
+        <div className="sidebar-and-content-container">
+          <Sidebar />
+          <MobileSidebar />
+          <div className="content">
+            <Outlet />
+          </div>
         </div>
+        <BottomNavBar />
       </div>
-      <BottomNavBar />
-    </div>
+    </ServiceProvider>
+
   )
 }
 
