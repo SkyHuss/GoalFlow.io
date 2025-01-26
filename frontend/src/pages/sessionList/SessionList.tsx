@@ -6,6 +6,7 @@ import './SessionList.css'
 import SprintSessionCard from '../../components/sprintSession/card/SprintSessionCard';
 import ActionButton from '../../components/generic/actionButton/ActionButton';
 import Tab, { TabItem } from '../../components/generic/tab/Tab';
+import Modal from '../../components/generic/modal/Modal';
 
 export default function SessionList() {
 
@@ -19,6 +20,7 @@ export default function SessionList() {
     const { sprintSessionService } = useServices();
     const [sessionsList, setSessionList] = useState<SprintSession[]>([]);
     const [selectedTabId, setSelectedTabId] = useState<number>(0);
+    const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState<boolean>(false)
     
 
 
@@ -30,6 +32,7 @@ export default function SessionList() {
     }
 
     const handleCreateSession = () => {
+        setIsCreateSessionModalOpen(true)
         console.log("Todo: Creation d une session")
     }
 
@@ -61,6 +64,12 @@ export default function SessionList() {
                 <SprintSessionCard session={session} key={session.id}/>
             ))}
         </div>
+
+        {isCreateSessionModalOpen && (
+            <Modal title='Create a sprint session'  closeModal={() => setIsCreateSessionModalOpen(false)}>
+                Formulaire de creation de session
+            </Modal>
+        )}
 
         <div className="mobile-create-button" onClick={handleCreateSession}>
             <Add />

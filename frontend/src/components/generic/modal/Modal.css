@@ -110,3 +110,9 @@
 .modal-background.bottom-right .modal-container {
     border-top-left-radius: 8px;
 }
+
+@media screen and (max-width: 675px) {
+    .modal-container {
+        max-width: 100%;
+    }
+}
