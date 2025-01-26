@@ -77,7 +77,7 @@ export default function SprintSessionCard ({session}: Props) {
         <div className="footer">
             <div className="members">
                 {fakeMembers.map(member => (
-                    <img className='member-picture' src={member.picture} alt="" />
+                    <img className='member-picture' src={member.picture} alt="" key={'picture' + member.id}/>
                 ))}
                 {fakeMembers.length > 4 &&
                     <div className='overflow-picture'>
