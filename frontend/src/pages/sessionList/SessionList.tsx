@@ -65,6 +65,5 @@ export default function SessionList() {
         <div className="mobile-create-button" onClick={handleCreateSession}>
             <Add />
         </div>
-
     </div>
 }
