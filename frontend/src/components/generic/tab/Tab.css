@@ -37,3 +37,13 @@
     font-size: var(--xx-small);
     user-select: none;
 }
+
+@media screen and (max-width: 675px) {
+    .tab-container .tab-item {
+        font-size: var(--xxx-small);
+    }
+
+    .tab-container .tab-item .count {
+        font-size: var(--xxx-small);
+    }
+}

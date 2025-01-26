@@ -1,4 +1,4 @@
-import { AddCircleOutline, Tune } from '@mui/icons-material';
+import { Add, AddCircleOutline, Tune } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { useServices } from '../../hooks/useServices'
 import { SprintSession } from '../../models/SprintSession';
@@ -51,13 +51,19 @@ export default function SessionList() {
             <Tab tabs={tabsItems} selectTabId={selectedTabId} setSelectedTabId={setSelectedTabId}/>
             <div className="filter-actions">
                 <ActionButton label='Filters' icon={Tune} outlined={true} onClick={handleFilters}/>
-                <ActionButton label='Create new session' icon={AddCircleOutline} onClick={handleCreateSession}/>
+                <div className="create-button">
+                    <ActionButton label='Create new session' icon={AddCircleOutline} onClick={handleCreateSession}/>
+                </div>
             </div>
         </div>
         <div className="session-list">
             {sessionsList.map(session => (
                 <SprintSessionCard session={session} key={session.id}/>
             ))}
+        </div>
+
+        <div className="mobile-create-button" onClick={handleCreateSession}>
+            <Add />
         </div>
 
     </div>
