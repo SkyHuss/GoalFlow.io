@@ -3,8 +3,19 @@ import NavButton from '../../components/generic/navButton/NavButton';
 import './DesignWorkshop.css';
 import ActionButton from '../../components/generic/actionButton/ActionButton';
 import { ButtonType } from '../../constants/buttons/buttonsTypes';
+import Tab, { TabItem } from '../../components/generic/tab/Tab';
+import { useState } from 'react';
 
 export default function DesignWorkshop() {
+
+    const tabsItems: TabItem[] = [
+        {id: 0, label: 'In progress', count: 8},
+        {id: 1, label: 'Not started', count: 2},
+        {id: 2, label: 'Completed', count: 265},
+    ];
+
+    const [selectedTabId, setSelectedTabId] = useState<number>(0);
+
     return <div className="design-workshop-container">
         <div className="header">Here is a list of all generic components</div>
         <div className="components">
@@ -22,14 +33,13 @@ export default function DesignWorkshop() {
                     <ActionButton icon={AddCircleOutline} type={ButtonType.Danger} outlined={true} label='Outlined danger button' onClick={() => {console.log("action button clicked !")}}/>
                     <ActionButton icon={AddCircleOutline} type={ButtonType.Info} label='Info button' onClick={() => {console.log("action button clicked !")}}/>
                     <ActionButton icon={AddCircleOutline} type={ButtonType.Info} outlined={true} label='Outlined info button' onClick={() => {console.log("action button clicked !")}}/>
-
                 </div>
             </div>
             {/* Tabs */}
             <div className='section'>
                 Tabs
                 <div className="items">
-                    coucou
+                    <Tab tabs={tabsItems} selectTabId={selectedTabId} setSelectedTabId={setSelectedTabId}/>
                 </div>
             </div>
 
