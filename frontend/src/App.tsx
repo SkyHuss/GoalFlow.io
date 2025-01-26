@@ -13,6 +13,7 @@ import './constants/style/color.css';
 import './constants/style/font.css';
 import './App.css';
 import { ServiceProvider } from './context/ServiceProvider';
+import DesignWorkshop from './pages/designWorkshop/DesignWorkshop';
 
 function AppLayout() {
   return (
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: '/history',
         element: <History />
+      },
+      {
+        path: '/design',
+        element: <DesignWorkshop />
       },
       //Profile links
       {
