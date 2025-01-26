@@ -3,7 +3,7 @@ export interface SprintSession {
     name: string;
     description: string;
     image: string;
-    startDate: Date;
-    creationDate: Date;
-    dueDate: Date;
+    startDate: string;
+    creationDate: string;
+    dueDate: string;
 }
