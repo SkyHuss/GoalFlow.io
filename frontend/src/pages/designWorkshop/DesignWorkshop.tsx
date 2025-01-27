@@ -7,6 +7,10 @@ import Tab, { TabItem } from '../../components/generic/tab/Tab';
 import { useState } from 'react';
 import Modal from '../../components/generic/modal/Modal';
 import { ModalPosition } from '../../constants/modal/modalPosition';
+import TextInput from '../../components/generic/form/textInput/TextInput';
+import { TextAreaInputType, TextInputType } from '../../constants/form/formTypes';
+import { DateTime } from 'luxon';
+import TextAreaInput from '../../components/generic/form/textArea/TextAreaInput';
 
 export default function DesignWorkshop() {
 
@@ -23,6 +27,43 @@ export default function DesignWorkshop() {
     const [isBottomRightModalDisplay, setIsBottomRightModalDisplay] = useState<boolean>(false);
     const [isBottomLeftModalDisplay, setIsBottomLeftModalDisplay] = useState<boolean>(false);
 
+    interface FormData {
+        name: string,
+        description: string,
+        picture: string,
+        dueDate: string,
+        startDate: string,
+    }
+
+    const [formData, setFormData] = useState<FormData>({
+        name: '',
+        description: '',
+        picture: '',
+        startDate: DateTime.now().toLocaleString(),
+        dueDate: DateTime.now().toLocaleString()
+    })
+
+    const handleInputChange = (key: string, value: string) => {
+        setFormData((prev) => ({ ...prev, [key]: value }));
+    };
+
+    const nameInputProps: TextInputType = {
+        isRequired: true,
+        value: formData.name,
+        placeholder: 'Enter a title...',
+        onChange: (newValue: string) => handleInputChange('name', newValue),
+        label: 'Sprint session title',
+        subLabel: 'The name of the new sprint session'
+    };
+
+    const descriptionInputProps: TextAreaInputType = {
+        isRequired: false,
+        value: formData.description,
+        placeholder: 'Enter a description...',
+        onChange: (newValue: string) => handleInputChange('name', newValue),
+        label: 'Sprint session title',
+        subLabel: 'The description of the new sprint session'
+    };
 
 
     return <div className="design-workshop-container">
@@ -88,6 +129,16 @@ export default function DesignWorkshop() {
                             Modal content
                         </Modal>
                     )}
+                </div>
+            </div>
+
+            {/* Form */}
+            <div className="section">
+                Form
+                <div className="items">
+                    <TextInput input={nameInputProps}/>
+                    <TextAreaInput input={descriptionInputProps}/>
+                    <button onClick={() => console.log("test: ", formData)}>coucuo</button>
                 </div>
             </div>
 

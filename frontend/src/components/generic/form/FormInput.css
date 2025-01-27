@@ -1,0 +1,31 @@
+.form-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.form-input .label {
+    font-size: var(--p);
+    color: var(--text-primary);
+    font-weight: bold;
+    display: flex;
+    gap: 5px;
+}
+
+.form-input .label .is-required {
+    color: var(--danger-300);
+}
+
+.form-input .sub-label {
+    font-size: var(--x-small);
+    color: var(--text-secondary);
+}
+
+
+
+.form-input .errors {
+    font-size: var(--x-small);
+    color: var(--danger-300);
+    text-decoration: underline;
+}
