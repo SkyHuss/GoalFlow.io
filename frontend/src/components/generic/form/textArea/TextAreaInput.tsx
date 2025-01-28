@@ -1,24 +1,28 @@
-import { TextAreaInputType } from '../../../../constants/form/formTypes'
 import '../FormInput.css'
 import './TextAreaInput.css'
 
 interface Props {
-    input: TextAreaInputType;
+    placeholder?: string;
+    label: string;
+    subLabel?: string;
+    isRequired: boolean;
+    value: string;
+    onChange: (value: string) => void;
 }
 
-export default function TextAreaInput({input}: Props) {
+export default function TextAreaInput({placeholder, label, subLabel, isRequired, value, onChange}: Props) {
 
     // const [error, setError] = useState<string | null>(null);
 
     return <div className="textarea-input-container form-input">
         <div className="label">
-            {input.label} {input.isRequired && <div className="is-required">*</div>}
+            {label} {isRequired && <div className="is-required">*</div>}
         </div>
-        {input.subLabel && <div className='sub-label'>{input.subLabel}</div>}
+        {subLabel && <div className='sub-label'>{subLabel}</div>}
         <textarea 
-            value={input.value} 
-            onChange={e => input.onChange(e.target.value)}  
-            placeholder={input.placeholder ? input.placeholder : 'Enter a long text...'}
+            value={value} 
+            onChange={e => onChange(e.target.value)}  
+            placeholder={placeholder ? placeholder : 'Enter a long text...'}
         />
         {/* {error && <div className="errors">{error}</div>} */}
     </div>

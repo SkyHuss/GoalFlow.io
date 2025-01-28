@@ -1,3 +1,4 @@
+import 'react-datepicker/dist/react-datepicker.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';

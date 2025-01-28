@@ -8,9 +8,9 @@ import { useState } from 'react';
 import Modal from '../../components/generic/modal/Modal';
 import { ModalPosition } from '../../constants/modal/modalPosition';
 import TextInput from '../../components/generic/form/textInput/TextInput';
-import { TextAreaInputType, TextInputType } from '../../constants/form/formTypes';
 import { DateTime } from 'luxon';
 import TextAreaInput from '../../components/generic/form/textArea/TextAreaInput';
+import DatePickerInput from '../../components/generic/form/datePicker/DatePickerInput';
 
 export default function DesignWorkshop() {
 
@@ -31,44 +31,57 @@ export default function DesignWorkshop() {
         name: string,
         description: string,
         picture: string,
-        dueDate: string,
-        startDate: string,
+        dueDate: DateTime,
+        startDate: DateTime,
     }
 
     const [formData, setFormData] = useState<FormData>({
         name: '',
         description: '',
         picture: '',
-        startDate: DateTime.now().toLocaleString(),
-        dueDate: DateTime.now().toLocaleString()
+        startDate: DateTime.now(),
+        dueDate: DateTime.now()
     })
 
-    const handleInputChange = (key: string, value: string) => {
+    const handleInputChange = (key: string, value: string | DateTime) => {
         setFormData((prev) => ({ ...prev, [key]: value }));
     };
-
-    const nameInputProps: TextInputType = {
-        isRequired: true,
-        value: formData.name,
-        placeholder: 'Enter a title...',
-        onChange: (newValue: string) => handleInputChange('name', newValue),
-        label: 'Sprint session title',
-        subLabel: 'The name of the new sprint session'
-    };
-
-    const descriptionInputProps: TextAreaInputType = {
-        isRequired: false,
-        value: formData.description,
-        placeholder: 'Enter a description...',
-        onChange: (newValue: string) => handleInputChange('name', newValue),
-        label: 'Sprint session title',
-        subLabel: 'The description of the new sprint session'
-    };
-
 
     return <div className="design-workshop-container">
         <div className="header">Here is a list of all generic components</div>
         <div className="components">
+            {/* Form */}
+            <div className="section">
+                Form
+                <div className="items">
+                    <TextInput
+                        isRequired={true}
+                        value={formData.name}
+                        placeholder='Enter a session title...'
+                        onChange={(newValue: string) => handleInputChange('name', newValue)}
+                        label='Sprint session title'
+                        subLabel='The description of the new sprint session'
+                    />
+                    <TextAreaInput
+                            isRequired={false}
+                            value={formData.description}
+                            placeholder='Enter a description...'
+                            onChange={(newValue: string) => handleInputChange('description', newValue)}
+                            label='Description'
+                            subLabel='The description of the new sprint session'
+                    />
+                    <DatePickerInput
+                        label='Start date'
+                        subLabel='The date when the sprint session start'
+                        isRequired={true}
+                        value={formData.startDate}
+                        placeholder='Enter a start date...'
+                        onChange={(newValue: DateTime) => handleInputChange('startDate', newValue)}
+                        disabled={false}
+                    />
+                    <button onClick={() => console.log("test: ", formData)}>coucuo</button>
+                </div>
+            </div>
             {/* BUTTONS */}
             <div className='section'>
                 Buttons
@@ -131,18 +144,6 @@ export default function DesignWorkshop() {
                     )}
                 </div>
             </div>
-
-            {/* Form */}
-            <div className="section">
-                Form
-                <div className="items">
-                    <TextInput input={nameInputProps}/>
-                    <TextAreaInput input={descriptionInputProps}/>
-                    <button onClick={() => console.log("test: ", formData)}>coucuo</button>
-                </div>
-            </div>
-
         </div>
-
     </div>
 }

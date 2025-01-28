@@ -7,6 +7,7 @@ import SprintSessionCard from '../../components/sprintSession/card/SprintSession
 import ActionButton from '../../components/generic/actionButton/ActionButton';
 import Tab, { TabItem } from '../../components/generic/tab/Tab';
 import Modal from '../../components/generic/modal/Modal';
+import SprintSessionForm from '../../components/sprintSession/form/SprintSessionForm';
 
 export default function SessionList() {
 
@@ -67,7 +68,7 @@ export default function SessionList() {
 
         {isCreateSessionModalOpen && (
             <Modal title='Create a sprint session'  closeModal={() => setIsCreateSessionModalOpen(false)}>
-                Formulaire de creation de session
+                <SprintSessionForm />
             </Modal>
         )}
 

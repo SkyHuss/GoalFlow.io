@@ -1,5 +1,5 @@
 .textarea-input-container textarea {
-    background-color: var(--secondary-30);
+    background-color: var(--secondary-300);
     border: solid 1px var(--text-secondary);
     border-radius: 8px;
     height: 90px;
