@@ -11,6 +11,7 @@ import TextInput from '../../components/generic/form/textInput/TextInput';
 import { DateTime } from 'luxon';
 import TextAreaInput from '../../components/generic/form/textArea/TextAreaInput';
 import DatePickerInput from '../../components/generic/form/datePicker/DatePickerInput';
+import FileInput from '../../components/generic/form/fileInput/FileInput';
 
 export default function DesignWorkshop() {
 
@@ -30,7 +31,7 @@ export default function DesignWorkshop() {
     interface FormData {
         name: string,
         description: string,
-        picture: string,
+        picture: File | null,
         dueDate: DateTime,
         startDate: DateTime,
     }
@@ -38,12 +39,12 @@ export default function DesignWorkshop() {
     const [formData, setFormData] = useState<FormData>({
         name: '',
         description: '',
-        picture: '',
+        picture: null,
         startDate: DateTime.now(),
         dueDate: DateTime.now()
     })
 
-    const handleInputChange = (key: string, value: string | DateTime) => {
+    const handleInputChange = (key: string, value: string | DateTime | File | null) => {
         setFormData((prev) => ({ ...prev, [key]: value }));
     };
 
@@ -78,6 +79,15 @@ export default function DesignWorkshop() {
                         placeholder='Enter a start date...'
                         onChange={(newValue: DateTime) => handleInputChange('startDate', newValue)}
                         disabled={false}
+                    />
+                    <FileInput 
+                        label='Session picture'
+                        subLabel='A small picture to quicky identify the sprint session'
+                        isRequired={true}
+                        file={formData.picture}
+                        setFile={(file: File | null) => handleInputChange('picture', file)}
+                    
+                        placeholder='Select a image...'
                     />
                     <button onClick={() => console.log("test: ", formData)}>coucuo</button>
                 </div>

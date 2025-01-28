@@ -1,0 +1,52 @@
+.file-input-container .input-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.file-input-container .input-file .preview img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: var(--text-primary);
+}
+
+.file-input-container .input-file .preview .no-image {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: solid 1px var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.file-input-container .input-file .custom-input-file {
+    background-color: var(--secondary-300);
+    height: 92px;
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+    transition: all 0.3s;
+}
+
+.file-input-container .input-file .custom-input-file.drag-over {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.file-input-container .input-file .custom-input-file:hover {
+    cursor: pointer;
+}
+
+.file-input-container .input-file input {
+    display: none;
+}

@@ -58,7 +58,6 @@ export default function DatePickerInput({
     };
 
     const getDateDisplay = (date: DateTime | null) => {
-        console.log("dj:", date?.month)
         let label = '';
         if (date) {
             label = date.day + " " + monthNames[date.month - 1] + ' ' + date.year;
