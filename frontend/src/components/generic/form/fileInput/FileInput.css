@@ -34,8 +34,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: var(--text-secondary);
     transition: all 0.3s;
+    padding: 20px;
 }
 
 .file-input-container .input-file .custom-input-file.drag-over {

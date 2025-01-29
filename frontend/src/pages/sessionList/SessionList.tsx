@@ -1,6 +1,5 @@
 import { Add, AddCircleOutline, Tune } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { useServices } from '../../hooks/useServices'
 import { SprintSession } from '../../models/SprintSession';
 import './SessionList.css'
 import SprintSessionCard from '../../components/sprintSession/card/SprintSessionCard';
@@ -8,6 +7,7 @@ import ActionButton from '../../components/generic/actionButton/ActionButton';
 import Tab, { TabItem } from '../../components/generic/tab/Tab';
 import Modal from '../../components/generic/modal/Modal';
 import SprintSessionForm from '../../components/sprintSession/form/SprintSessionForm';
+import { getSprintSessionList } from '../../services/api/sprintSessionService';
 
 export default function SessionList() {
 
@@ -18,15 +18,17 @@ export default function SessionList() {
         {id: 2, label: 'Completed', count: 265},
     ];
 
-    const { sprintSessionService } = useServices();
     const [sessionsList, setSessionList] = useState<SprintSession[]>([]);
     const [selectedTabId, setSelectedTabId] = useState<number>(0);
-    const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState<boolean>(false)
+    const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState<boolean>(false);
+
+    const addSession = (newSession: SprintSession) => {
+        setSessionList((prevSessions) => [...prevSessions, newSession]);
+      };
     
-
-
+    
     const fetchSprintSessionList = async () => {
-        const sessions: SprintSession[] = await sprintSessionService.getSprintSessionList();
+        const sessions: SprintSession[] = await getSprintSessionList();
         if(sessions) {
             setSessionList(sessions);
         }
@@ -68,7 +70,7 @@ export default function SessionList() {
 
         {isCreateSessionModalOpen && (
             <Modal title='Create a sprint session'  closeModal={() => setIsCreateSessionModalOpen(false)}>
-                <SprintSessionForm />
+                <SprintSessionForm closeModal={() => setIsCreateSessionModalOpen(false)} addSession={addSession} />
             </Modal>
         )}
 

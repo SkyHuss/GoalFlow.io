@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SprintSession } from './entities/sprint-session.entity';
+import { CreateSprintSessionDto } from './dto/create-sprint-session.dto';
 
 @Injectable()
 export class SprintSessionService {
@@ -18,7 +19,16 @@ export class SprintSessionService {
     return this.sprintSessionRepository.findOne({ where: { id } });
   }
 
-  create(session: SprintSession): Promise<SprintSession> {
+  create(
+    createSessionDto: CreateSprintSessionDto,
+    pictureUrl: string | undefined,
+  ): Promise<SprintSession> {
+    const session = this.sprintSessionRepository.create({
+      ...createSessionDto,
+      image: pictureUrl,
+      creationDate: new Date(),
+    });
+    console.log("cououcccccccccccccccccccc: ", session, pictureUrl)
     return this.sprintSessionRepository.save(session);
   }
 

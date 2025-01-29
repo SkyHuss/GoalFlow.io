@@ -134,3 +134,14 @@
     border: solid 1px var(--info-300);
     color: var(--info-300);
 }
+
+/* disabled buttons */
+.action-button.disabled {
+    background-color: var(--text-secondary);
+    color: var(--text-primary);
+    pointer-events: none;
+}
+
+.action-button.disabled:hover {
+
+}

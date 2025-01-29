@@ -1,9 +1,11 @@
-import { ArrowDropDown, Event } from '@mui/icons-material';
+import { ArrowDropDown, Check, CleaningServices, Event } from '@mui/icons-material';
 import { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import '../FormInput.css'
 import './DatePickerInput.css';
 import { DateTime } from 'luxon';
+import ActionButton from '../../actionButton/ActionButton';
+import { ButtonType } from '../../../../constants/buttons/buttonsTypes';
 
 interface Props {
     placeholder?: string;
@@ -12,7 +14,8 @@ interface Props {
     subLabel?: string;
     isRequired: boolean;
     disabled: boolean;
-    onChange: (date: DateTime) => void;
+    placeTop?: boolean
+    onChange: (date: DateTime | null) => void;
 }
 
 export default function DatePickerInput({
@@ -22,22 +25,9 @@ export default function DatePickerInput({
     subLabel,
     isRequired,
     disabled = false,
+    placeTop = false,
     onChange
 }: Props) {
-    const monthNames = [
-        'Jan.',
-        'Feb.',
-        'Mar.',
-        'Apr.',
-        'Mai',
-        'June',
-        'Jul.',
-        'Aug.',
-        'Sept.',
-        'Oct.',
-        'Nov.',
-        'Dec.'
-    ];
 
     const [selectedDate, setSelectedDate] = useState<DateTime | null>(value);
     const [isPickerDisplay, setIsPickerDisplay] = useState<boolean>(false);
@@ -60,7 +50,7 @@ export default function DatePickerInput({
     const getDateDisplay = (date: DateTime | null) => {
         let label = '';
         if (date) {
-            label = date.day + " " + monthNames[date.month - 1] + ' ' + date.year;
+            label = date.toFormat("d LLLL yyyy 'at' HH:mm")
         } else {
             label = placeholder;
         }
@@ -71,9 +61,21 @@ export default function DatePickerInput({
     const handleDateChange = (date: Date | null) => {
         if (!disabled && date) {
             setSelectedDate(DateTime.fromJSDate(date));
-            onChange(DateTime.fromJSDate(date));
         }
+    };
+
+    const clearDates = () => {
+        setSelectedDate(null);
+        onChange(null);
+
         setIsPickerDisplay(false);
+    };
+
+    const validateDates = () => {
+        if(selectedDate) {
+            onChange(selectedDate);
+            setIsPickerDisplay(false);
+        }
     };
 
     return (
@@ -82,14 +84,21 @@ export default function DatePickerInput({
                 {label} {isRequired && <div className='is-required'>*</div>}
             </div>
             {subLabel && <div className='sub-label'>{subLabel}</div>}
-            <div className="date-picker-button" onClick={() => setIsPickerDisplay(true)}>
+            <div className={`date-picker-button ${!value ? 'placeholder': ''} `} onClick={() => setIsPickerDisplay(true)}>
                 <Event/>
-                {getDateDisplay(selectedDate)}
+                {getDateDisplay(value)}
                 <ArrowDropDown style={{ marginLeft: 'auto' }} />
             </div>
 
             {isPickerDisplay && !disabled && (
-                <div className="date-picker-content" ref={datepickerRef} style={{top: subLabel ? 92 : 70}}>
+                <div 
+                    className="date-picker-content" 
+                    ref={datepickerRef} 
+                    style={
+                        placeTop ? 
+                        {bottom: 50 }:
+                        {top: subLabel ? 92 : 70}
+                        }>
                     <DatePicker
                         selected={selectedDate?.toJSDate()}
                         onChange={handleDateChange}
@@ -97,6 +106,15 @@ export default function DatePickerInput({
                         disabled={disabled}
                         showTimeSelect
                     />
+                    <div className="submit-actions">
+                        <ActionButton icon={CleaningServices} label="Effacer" type={ButtonType.Secondary} onClick={clearDates} />
+                        <ActionButton
+                            icon={Check}
+                            label="Valider"
+                            type={!selectedDate ? ButtonType.Disabled : ButtonType.Primary}
+                            onClick={validateDates}
+                        />
+                    </div>
                 </div>
             )}
         </div>

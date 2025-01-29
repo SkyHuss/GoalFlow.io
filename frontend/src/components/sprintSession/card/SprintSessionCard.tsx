@@ -4,6 +4,7 @@ import type { SprintSession } from "../../../models/SprintSession"
 import './SprintSessionCard.css'
 import { formatDate } from '../../../utils/date';
 import { useEffect, useRef, useState } from 'react';
+import api from '../../../services/api/api';
 
 interface Props {
     session: SprintSession;
@@ -58,7 +59,9 @@ export default function SprintSessionCard ({session}: Props) {
         )}
 
         <div className="picture">
-            <img src="/assets/fake/pp.PNG" alt="" />
+            {session.image && (
+                <img src={import.meta.env.VITE_BASE_URL + session.image} alt="" />
+            )}
         </div>
         <div className="name">
             {session.name}

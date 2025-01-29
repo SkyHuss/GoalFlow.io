@@ -17,6 +17,10 @@
     font-size: var(--x-small);
 }
 
+.date-picker-container .date-picker-button.placeholder {
+    color: var(--text-secondary);
+}
+
 .date-picker-container .date-picker-button:hover {
     cursor: pointer;
 }
@@ -30,13 +34,21 @@
 
 .date-picker-container .date-picker-content {
     position: absolute;
-    top: 40px;
     left: 0;
-    width: 276px;
-    border-radius: 4px;
+    width:100%;
+    border-radius: 8px;
     padding: 8px;
-    background-color: var(--white);
     z-index: 1000;
+    background-color: var(--secondary-200);
+    border: solid 1px var(--text-secondary);
+    
+
+}
+
+.date-picker-container .date-picker-content .submit-actions {
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-evenly;
 }
 
 
@@ -89,6 +101,10 @@
 
 .react-datepicker__day-names div{
     color: var(--text-secondary);
+}
+
+.react-datepicker__day--today {
+    text-decoration: underline;
 }
 
 .react-datepicker__month {

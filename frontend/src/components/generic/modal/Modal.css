@@ -64,7 +64,7 @@
 } 
 
 .modal-container .modal-content {
-    padding: 15px 0;
+    width: 100%;
 }
 
 /* Handle MODAL position */

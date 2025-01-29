@@ -46,7 +46,6 @@ export default function FileInput({placeholder, label, subLabel, isRequired, fil
         </div>
         {subLabel && <div className='sub-label'>{subLabel}</div>}
         <div className="input-file">
-
             <div className="preview">
                 {file && 
                     <img src={URL.createObjectURL(file)} alt="Preview" />

@@ -1,4 +1,4 @@
-import { AddCircleOutline, Notifications, OpenInBrowser } from '@mui/icons-material';
+import { AddCircleOutline, Notifications, OpenInBrowser, ViewCarousel } from '@mui/icons-material';
 import NavButton from '../../components/generic/navButton/NavButton';
 import './DesignWorkshop.css';
 import ActionButton from '../../components/generic/actionButton/ActionButton';
@@ -89,7 +89,7 @@ export default function DesignWorkshop() {
                     
                         placeholder='Select a image...'
                     />
-                    <button onClick={() => console.log("test: ", formData)}>coucuo</button>
+                    <ActionButton label='Log form' icon={ViewCarousel} type={ButtonType.Success} onClick={() => console.log("test: ", formData)}/>
                 </div>
             </div>
             {/* BUTTONS */}

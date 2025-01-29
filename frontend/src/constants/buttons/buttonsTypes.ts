@@ -3,5 +3,6 @@ export enum ButtonType {
     Secondary = 'secondary',
     Success = 'success',
     Danger = 'danger',
-    Info = 'info'
+    Info = 'info',
+    Disabled= 'disabled'
 }
