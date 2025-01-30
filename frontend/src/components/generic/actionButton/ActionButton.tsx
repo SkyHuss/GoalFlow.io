@@ -20,12 +20,12 @@ export default function ActionButton({
     onClick = () => {},
 }: Props) {
     return (
-        <div
+        <button
             className={`action-button ${type ? type : ''} ${outlined ? 'outlined': ''}`}
             onClick={disabled ? ()=> {}: onClick}
         >
             {Icon && <Icon data-testid="svg-icon" />}
             <div className="action-title">{label}</div>
-        </div>
+        </button>
     );
 }

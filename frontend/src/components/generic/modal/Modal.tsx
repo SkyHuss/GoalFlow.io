@@ -5,7 +5,8 @@ import './Modal.css';
 import { Close } from '@mui/icons-material';
 
 interface Props {
-    closeModal: () => void;
+    noCloseButton?: boolean;
+    closeModal?: () => void;
     position?: ModalPosition;
     title? : string
     minWidth?: number
@@ -31,7 +32,7 @@ export default function Modal(props: PropsWithChildren<Props>) {
             <div id="modal" className={`modal-container ${showContent ? 'show-modal' : ''}`}>
                 <div className="header">
                     <div className="modal-title">{props.title}</div>
-                    <div className="close-modal" onClick={props.closeModal}><Close/></div>
+                    {!props.noCloseButton && <div className="close-modal" onClick={props.closeModal}><Close/></div>}
                 </div>
                 <div className="modal-content" style={{minWidth: props.minWidth ?? 20}}>
                     {props.children}

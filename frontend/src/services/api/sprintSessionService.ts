@@ -23,7 +23,10 @@ export const postSprintSession = async (data: SprintSessionFormData): Promise<Sp
     if (data.dueDate && data.dueDate.toISO()) {
         formData.append('dueDate', data.dueDate.toISO() as string);
     }
-    console.log("mama: ", data)
     const response = await api.post<SprintSession>('/sprint-session', formData);
     return response.data;
+}
+
+export const deleteSprintSession = async (sessionId: number): Promise<void> => {
+    await api.delete<void>(`/sprint-session/${sessionId}`);
 }

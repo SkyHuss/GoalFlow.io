@@ -24,8 +24,11 @@ export default function SessionList() {
 
     const addSession = (newSession: SprintSession) => {
         setSessionList((prevSessions) => [...prevSessions, newSession]);
-      };
-    
+    };
+
+    const removeSession = (sessionId: number) => {
+        setSessionList((prevSession) => prevSession.filter(session => session.id !== sessionId));
+    };
     
     const fetchSprintSessionList = async () => {
         const sessions: SprintSession[] = await getSprintSessionList();
@@ -64,7 +67,7 @@ export default function SessionList() {
         </div>
         <div className="session-list">
             {sessionsList.map(session => (
-                <SprintSessionCard session={session} key={session.id}/>
+                <SprintSessionCard session={session} key={session.id} removeSession={removeSession}/>
             ))}
         </div>
 

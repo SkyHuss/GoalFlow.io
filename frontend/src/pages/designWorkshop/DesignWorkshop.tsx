@@ -1,4 +1,4 @@
-import { AddCircleOutline, Notifications, OpenInBrowser, ViewCarousel } from '@mui/icons-material';
+import { AddCircleOutline, Delete, Notifications, OpenInBrowser, ViewCarousel } from '@mui/icons-material';
 import NavButton from '../../components/generic/navButton/NavButton';
 import './DesignWorkshop.css';
 import ActionButton from '../../components/generic/actionButton/ActionButton';
@@ -12,6 +12,7 @@ import { DateTime } from 'luxon';
 import TextAreaInput from '../../components/generic/form/textArea/TextAreaInput';
 import DatePickerInput from '../../components/generic/form/datePicker/DatePickerInput';
 import FileInput from '../../components/generic/form/fileInput/FileInput';
+import ConfirmDialog from '../../components/generic/confirmDialog/ConfirmDialog';
 
 export default function DesignWorkshop() {
 
@@ -27,6 +28,7 @@ export default function DesignWorkshop() {
     const [isTopLeftModalDisplay, setIsTopLeftModalDisplay] = useState<boolean>(false);
     const [isBottomRightModalDisplay, setIsBottomRightModalDisplay] = useState<boolean>(false);
     const [isBottomLeftModalDisplay, setIsBottomLeftModalDisplay] = useState<boolean>(false);
+    const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false)
 
     interface FormData {
         name: string,
@@ -51,6 +53,21 @@ export default function DesignWorkshop() {
     return <div className="design-workshop-container">
         <div className="header">Here is a list of all generic components</div>
         <div className="components">
+        {/* BUTTONS */}
+            <div className='section'>
+                Dialog
+                <div className="items">
+                    <ActionButton label='Supprimer' icon={Delete} type={ButtonType.Danger} onClick={() => setIsConfirmDialogOpen(true)}/>
+                    {isConfirmDialogOpen && 
+                        <ConfirmDialog 
+                            messageTitle='Are tou sure ?' 
+                            message='You are about to delete an element: element name'
+                            onCancel={() => setIsConfirmDialogOpen(false)}
+                            onConfirm={() => {console.log('confirmed'); setIsConfirmDialogOpen(false)}}
+                        />
+                    }
+                </div>
+            </div>
             {/* Form */}
             <div className="section">
                 Form
@@ -77,7 +94,7 @@ export default function DesignWorkshop() {
                         isRequired={true}
                         value={formData.startDate}
                         placeholder='Enter a start date...'
-                        onChange={(newValue: DateTime) => handleInputChange('startDate', newValue)}
+                        onChange={(newValue: DateTime | null) => handleInputChange('startDate', newValue)}
                         disabled={false}
                     />
                     <FileInput 
