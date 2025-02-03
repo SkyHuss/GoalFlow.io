@@ -10,7 +10,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import * as fs from 'fs';
-import { SprintSession } from './entities/sprint-session.entity';
+import { SprintSession } from './entities/sprint-session.entities';
 import { SprintSessionService } from './sprint-session.service';
 import { CreateSprintSessionDto } from './dto/create-sprint-session.dto';
 import { FileInterceptor } from '@nestjs/platform-express';

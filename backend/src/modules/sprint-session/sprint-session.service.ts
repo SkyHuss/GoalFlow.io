@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SprintSession } from './entities/sprint-session.entity';
+import { SprintSession } from './entities/sprint-session.entities';
 import { CreateSprintSessionDto } from './dto/create-sprint-session.dto';
 import { ModifySprintSessionDto } from './dto/modify-sprint-session.dto';
 

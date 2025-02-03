@@ -1,5 +1,13 @@
+import { authClient } from '../../utils/auth-client'
 import './Home.css'
 
 export default function Home() {
-    return <div className="home-container">Home page</div>
+    authClient.signUp.email({
+        name: "florian",
+        email: "fl.gonzales5790@gmail.com",
+        password: "testjklhkjlgjhgfjkhgjhghjgjkh",
+    })
+    return <div className="home-container">
+
+    </div>
 }
