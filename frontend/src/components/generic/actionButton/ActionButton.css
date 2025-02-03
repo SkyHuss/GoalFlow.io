@@ -1,0 +1,147 @@
+.action-button {
+    height: 34px;
+    min-height: 34px;
+    border-radius: 8px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--primary-400);
+    color: var(--text-primary);
+    font-size: var(--p);
+    transition: all 0.3s;
+    filter: none;
+    white-space: nowrap;
+}
+
+.action-button:hover {
+    cursor: pointer;
+    background-color: var(--primary-300);
+}
+
+.action-button.outlined {
+    background-color: transparent;
+    border: solid 1px var(--primary-400);
+    color: var(--primary-400);
+}
+
+.action-button.outlined:hover {
+    border-color: var(--primary-300);
+    color: var(--primary-300);
+}
+
+
+/* Secondary buttons css */
+.action-button.secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-radius: 0;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.action-button.secondary:hover {
+    color: var(--text-primary);
+}
+
+.action-button.secondary::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: var(--text-secondary);
+    opacity: 0;
+    transition:
+        opacity 300ms,
+        transform 300ms;
+    opacity: 1;
+    transform: scale(0);
+    transform-origin: center;
+}
+
+.action-button.secondary:hover::after,
+.action-button.secondary:focus::after {
+    opacity: 1;
+    transform: scale(1);
+    background-color: var(--text-primary);
+}
+
+/* success buttons */
+.action-button.success {
+    background-color: var(--success-400);
+    color: var(--text-primary);
+}
+
+.action-button.success:hover {
+    background-color: var(--success-300);
+
+}
+
+.action-button.success.outlined {
+    background-color: transparent;
+    border: solid 1px var(--success-400);
+    color: var(--success-400);
+}
+
+.action-button.success.outlined:hover {
+    border: solid 1px var(--success-300);
+    color: var(--success-300);
+}
+
+/* danger buttons */
+.action-button.danger {
+    background-color: var(--danger-400);
+    color: var(--text-primary);
+}
+
+.action-button.danger:hover {
+    background-color: var(--danger-300);
+
+}
+
+.action-button.danger.outlined {
+    background-color: transparent;
+    border: solid 1px var(--danger-400);
+    color: var(--danger-400);
+}
+
+.action-button.danger.outlined:hover {
+    border: solid 1px var(--danger-300);
+    color: var(--danger-300);
+}
+
+/* info buttons */
+.action-button.info {
+    background-color: var(--info-400);
+    color: var(--text-primary);
+}
+
+.action-button.info:hover {
+    background-color: var(--info-300);
+
+}
+
+.action-button.info.outlined {
+    background-color: transparent;
+    border: solid 1px var(--info-400);
+    color: var(--info-400);
+}
+
+.action-button.info.outlined:hover {
+    border: solid 1px var(--info-300);
+    color: var(--info-300);
+}
+
+/* disabled buttons */
+.action-button.disabled {
+    background-color: var(--text-secondary);
+    color: var(--text-primary);
+    pointer-events: none;
+}
+
+.action-button.disabled:hover {
+
+}

@@ -1,0 +1,84 @@
+.file-input-container .input-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.file-input-container .input-file .preview{
+    position: relative;
+    box-sizing: border-box;
+}
+
+.file-input-container .input-file .preview:hover{
+    cursor: pointer;
+}
+
+.file-input-container .input-file .preview::after {
+    display: none;
+    content: 'X';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 60px;
+    width: 60px;
+    font-weight: bolder;
+    pointer-events: none;
+}
+
+.file-input-container .input-file .preview:hover::after {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-input-container .input-file .preview img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: var(--text-primary);
+}
+
+.file-input-container .input-file .preview .no-image {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: solid 1px var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.file-input-container .input-file .custom-input-file {
+    background-color: var(--secondary-300);
+    height: 92px;
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-secondary);
+    transition: all 0.3s;
+    padding: 20px;
+}
+
+.file-input-container .input-file .custom-input-file.drag-over {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.file-input-container .input-file .custom-input-file:hover {
+    cursor: pointer;
+}
+
+.file-input-container .input-file input {
+    display: none;
+}

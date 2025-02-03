@@ -1,0 +1,171 @@
+.sprint-session-container {
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    background-color: var(--secondary-200);
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    border: solid 1px var(--primary-500);
+}
+
+.sprint-session-container .card-actions {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    height: 30px;
+    width: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    color: var(--text-secondary);
+}
+
+.sprint-session-container .card-actions:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.sprint-session-container .dropdown-menu {
+    position: absolute;
+    background-color: var(--secondary-400);
+    right: 5px;
+    top: 35px;
+    border-radius: 8px;
+    border: solid 1px var(--secondary-200);
+}
+
+.sprint-session-container .dropdown-menu .session-action {
+    padding: 10px 15px;
+    transition: all 0.3s;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.sprint-session-container .dropdown-menu .session-action.danger {
+    color: var(--danger-400);
+}
+
+.sprint-session-container .dropdown-menu .session-action:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.sprint-session-container .picture {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: solid 1px var(--primary-100);
+}
+
+.sprint-session-container .picture img {
+    height: 78px;
+    width: 78px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sprint-session-container .picture .no-image {
+    height: 78px;
+    width: 78px;
+    background-color: var(--secondary-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sprint-session-container .name {
+    color: var(--text-primary);
+    font-size: var(--h4);
+    font-weight: bold;
+}
+
+.sprint-session-container .description {
+    color: var(--text-primary);
+    font-size: var(--xx-small);
+    font-weight: 100;
+    height: 70px;
+    font-style: italic;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sprint-session-container .progress-container {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    gap: 11px;
+}
+
+.sprint-session-container .progress-container .progress-bar {
+    height: 10px;
+    width: 200px;
+    background-color: var(--secondary-400);
+    border-radius: 8px;
+}
+
+.sprint-session-container .progress-container .progress-bar .bar {
+    height: 10px;
+    background-color: var(--primary-400);
+    border-radius: 8px;
+}
+
+.sprint-session-container .progress-container .percentage {
+    color: var(--primary-300);
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+.sprint-session-container .footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sprint-session-container .footer .members {
+    display: flex;
+}
+
+.sprint-session-container .footer .members .member-picture {
+    height: 30px;
+    width: 30px;
+    margin-right: -10px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid 1px var(--secondary-200);
+}
+
+.sprint-session-container .footer .members .overflow-picture {
+    height: 30px;
+    width: 30px;
+    background-color: var(--secondary-200);
+    border: solid 1px var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-size: var(--xxx-small);
+    border-radius: 50%;
+}
+
+.sprint-session-container .footer .due-date {
+    font-size: var(--xx-small);
+    font-weight: bold;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

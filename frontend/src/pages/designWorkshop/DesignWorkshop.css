@@ -1,0 +1,31 @@
+.design-workshop-container {
+    height: 100%;
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+.design-workshop-container .header {
+    font-weight: bold;
+    font-size: var(--h2);
+}
+
+.design-workshop-container .components {
+    height: calc(100% - 40px);
+    overflow: auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.design-workshop-container .components .section {
+    padding-bottom: 20px;
+}
+
+.design-workshop-container .components .section .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 10px;
+    border-top: solid 1px var(--text-secondary);
+}

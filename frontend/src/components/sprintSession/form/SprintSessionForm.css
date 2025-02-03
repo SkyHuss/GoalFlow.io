@@ -1,0 +1,36 @@
+.sprint-session-form-container {
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    min-width: 700px;
+}
+
+.sprint-session-form-container .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: calc(100vh - 260px);
+    overflow: auto;
+}
+
+.sprint-session-form-container .form-content .row {
+    display: flex;
+    gap: 20px;
+}
+
+.sprint-session-form-container .form-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+    padding-top: 20px;
+}
+
+@media screen and (max-width: 1050px) {
+    .sprint-session-form-container {
+        min-width: unset;
+    }
+    .sprint-session-form-container .row {
+        flex-direction: column;
+    }
+}
+

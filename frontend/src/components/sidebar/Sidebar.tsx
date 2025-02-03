@@ -27,7 +27,7 @@ export default function Sidebar() {
 
         <div className="footer">
             {!isCollapsed && 
-                <>© 2025 - GONZALES FLorian <br /> All rights reserved</>
+                <>© 2025 - GONZALES Florian <br /> All rights reserved</>
             }
 
         </div>

@@ -1,0 +1,118 @@
+.modal-background {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex;
+    overflow: hidden;
+}
+
+.modal-container {
+    max-width: 80%;
+    background-color: var(--secondary-300);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    opacity: 0.5;
+    transform: translateY(100vh);
+    transition: all 0.3s cubic-bezier(0.075, 0.885, 0.32, 1.275);
+    max-height: 95%;
+    overflow: hidden;
+}
+
+.modal-container > div:first-child {
+    width: 100%;
+}
+
+.modal-container.show-modal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal-container .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: solid 1px var(--text-secondary);
+}
+
+.modal-container .header .modal-title {
+    font-size: var(--h2);
+    font-weight: bold;
+}
+
+.modal-container .header .close-modal {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.modal-container .header .close-modal:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+} 
+
+.modal-container .modal-content {
+    width: 100%;
+}
+
+/* Handle MODAL position */
+.modal-background.center {
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-background.top-right {
+    justify-content: end;
+}
+
+.modal-background.top-left {
+    justify-content: start;
+}
+
+.modal-background.bottom-left {
+    align-items: end;
+    justify-content: start;
+}
+
+.modal-background.bottom-right {
+    align-items: end;
+    justify-content: end;
+}
+
+.modal-background.center .modal-container {
+    border-radius: 10px;
+}
+
+.modal-background.top-right .modal-container {
+    border-bottom-left-radius: 8px;
+}
+
+.modal-background.top-left .modal-container {
+    border-bottom-right-radius: 8px;
+}
+
+.modal-background.bottom-left .modal-container {
+    border-top-right-radius: 8px;
+}
+
+.modal-background.bottom-right .modal-container {
+    border-top-left-radius: 8px;
+}
+
+@media screen and (max-width: 675px) {
+    .modal-container {
+        max-width: 100%;
+    }
+}

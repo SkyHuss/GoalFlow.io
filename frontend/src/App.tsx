@@ -1,3 +1,4 @@
+import 'react-datepicker/dist/react-datepicker.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
@@ -12,6 +13,7 @@ import BottomNavBar from './components/navbar/bottomNavBar/BottomNavBar';
 import './constants/style/color.css';
 import './constants/style/font.css';
 import './App.css';
+import DesignWorkshop from './pages/designWorkshop/DesignWorkshop';
 
 function AppLayout() {
   return (
@@ -25,7 +27,7 @@ function AppLayout() {
         </div>
       </div>
       <BottomNavBar />
-    </div>
+      </div>
   )
 }
 
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/history',
         element: <History />
+      },
+      {
+        path: '/design',
+        element: <DesignWorkshop />
       },
       //Profile links
       {

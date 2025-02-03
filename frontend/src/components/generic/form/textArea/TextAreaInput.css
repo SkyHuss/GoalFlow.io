@@ -1,0 +1,16 @@
+.textarea-input-container textarea {
+    background-color: var(--secondary-300);
+    border: solid 1px var(--text-secondary);
+    border-radius: 8px;
+    height: 90px;
+    color: var(--text-primary);
+    padding: 10px;
+}
+
+.textarea-input-container textarea::placeholder{
+    color: var(--text-secondary);
+}
+
+.textarea-input-container textarea:focus {
+    outline: none;
+}
