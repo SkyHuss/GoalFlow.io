@@ -11,7 +11,7 @@ import { ButtonType } from '../../../constants/buttons/buttonsTypes';
 import { SprintSession } from '../../../models/SprintSession';
 
 export interface SprintSessionFormData {
-    id: number | null
+    id: string | null
     name: string,
     description: string,
     image: string | File | null,

@@ -26,7 +26,7 @@ export const putSprintSession = async (data: SprintSessionFormData): Promise<Spr
 };
 
 // Supprimer une session de sprint
-export const deleteSprintSession = async (sessionId: number): Promise<void> => {
+export const deleteSprintSession = async (sessionId: string): Promise<void> => {
     await api.delete<void>(`/sprint-session/${sessionId}`);
 };
 

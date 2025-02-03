@@ -11,7 +11,7 @@ import Modal from '../../generic/modal/Modal';
 
 interface Props {
     session: SprintSession;
-    removeSession: (sessionId: number) => void; 
+    removeSession: (sessionId: string) => void; 
     updateSession: (updatedSession: SprintSession) => void;
 }
 

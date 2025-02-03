@@ -36,7 +36,7 @@ export default function SessionList() {
         );
     };
 
-    const removeSession = (sessionId: number) => {
+    const removeSession = (sessionId: string) => {
         setSessionList((prevSession) => prevSession.filter(session => session.id !== sessionId));
     };
     

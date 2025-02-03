@@ -16,7 +16,7 @@ export class SprintSessionService {
     return this.sprintSessionRepository.find();
   }
 
-  findById(id: number): Promise<SprintSession | null> {
+  findById(id: string): Promise<SprintSession | null> {
     return this.sprintSessionRepository.findOne({ where: { id } });
   }
 
@@ -32,7 +32,7 @@ export class SprintSessionService {
     return this.sprintSessionRepository.save(session);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.sprintSessionRepository.delete(id);
   }
 

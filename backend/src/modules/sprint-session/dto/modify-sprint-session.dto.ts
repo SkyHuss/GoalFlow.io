@@ -2,8 +2,8 @@ import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
 import { PrimaryGeneratedColumn } from 'typeorm';
 
 export class ModifySprintSessionDto {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @IsString()
   @IsNotEmpty()
