@@ -7,18 +7,20 @@ interface Props {
     label: string;
     subLabel?: string;
     isRequired: boolean;
-    file: File | null;
+    file: string | File | null;
     setFile: (file: File | null) => void;
 }
 
 export default function FileInput({placeholder, label, subLabel, isRequired, file, setFile}: Props) {
     
     const [isDragOver, setIsDragOver] = useState<boolean>(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if(file) {
-            setFile(file)
+        const newfile = event.target.files?.[0];
+        if(newfile) {
+            setFile(newfile);
+            setSelectedFile(newfile)
         }
     }
 
@@ -36,6 +38,24 @@ export default function FileInput({placeholder, label, subLabel, isRequired, fil
         event.preventDefault();
     };
 
+    const getImageSrc = () => {
+        if (selectedFile) {
+            return URL.createObjectURL(selectedFile);
+        }
+        if (typeof file === 'string') {
+            return import.meta.env.VITE_BASE_URL + file;
+        }
+        if (file instanceof File) {
+            return import.meta.env.VITE_BASE_URL + file;
+        }
+        return null;
+    };
+
+    const discardImage = () => {
+        setFile(null);
+        setSelectedFile(null);
+    }
+
     const openFilePicker = () => {
         document.getElementById('hidden-file-input')?.click();
     }
@@ -46,25 +66,23 @@ export default function FileInput({placeholder, label, subLabel, isRequired, fil
         </div>
         {subLabel && <div className='sub-label'>{subLabel}</div>}
         <div className="input-file">
-            <div className="preview">
-                {file && 
-                    <img src={URL.createObjectURL(file)} alt="Preview" />
-                }
-                {!file && 
+            <div className="preview" onClick={discardImage}>
+                {getImageSrc() ? (
+                    <img src={getImageSrc()} alt="Preview" />
+                ) : (
                     <div className="no-image">
                         <NoPhotography />
                     </div>
-                }
+                )}
             </div>    
-
             <div 
                 className={`custom-input-file ${isDragOver ? 'drag-over' : ''}`} 
                 onClick={openFilePicker} onDrop={handleDrop} 
                 onDragOver={handleDragOver}
                 onDragLeave={() => setIsDragOver(false)}
             >
-                {file ? 
-                    <><Check />Selected filename: {file.name}</> :
+                {selectedFile ? 
+                    <><Check />Selected filename: {selectedFile.name}</> :
                     <><CloudUpload /> <div>{placeholder}</div></>
                 }
             </div>

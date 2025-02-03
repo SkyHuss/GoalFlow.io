@@ -8,40 +8,36 @@ import DatePickerInput from '../../generic/form/datePicker/DatePickerInput';
 import ActionButton from '../../generic/actionButton/ActionButton';
 import { Check, Close } from '@mui/icons-material';
 import { ButtonType } from '../../../constants/buttons/buttonsTypes';
-import { postSprintSession } from '../../../services/api/sprintSessionService';
 import { SprintSession } from '../../../models/SprintSession';
 
 export interface SprintSessionFormData {
+    id: number | null
     name: string,
     description: string,
-    picture: File | null,
-    dueDate: DateTime | null,
-    startDate: DateTime | null,
+    image: string | File | null,
+    dueDate: string | null,
+    startDate: string | null,
 }
 
 interface Props {
+    session?: SprintSession;
     closeModal: () => void;
-    addSession: (item: SprintSession) => void;
+    handleFormSubmit: (item: SprintSessionFormData) => void;
 }
 
-export default function SprintSessionForm({closeModal, addSession}: Props) {
+export default function SprintSessionForm({session, closeModal, handleFormSubmit}: Props) {
 
     const [sprintSessionFormData, setSprintSessionFormData] = useState<SprintSessionFormData>({
-        name: '',
-        description: '',
-        picture: null,
-        dueDate: null,
-        startDate: null
+        id: session ? session.id : null,
+        name: session ? session.name: '',
+        description: session ? session.description : '',
+        image: session ? session.image : null,
+        dueDate: session ? session.dueDate:  null,
+        startDate: session? session.startDate: null
     })
 
     const handleInputChange = (key: string, value: string | DateTime | File | null) => {
         setSprintSessionFormData((prev) => ({...prev, [key]: value})) ;
-    }
-
-    const handleFormSubmit = async () => {
-        const response: SprintSession = await postSprintSession(sprintSessionFormData);
-        addSession(response);
-        closeModal();
     }
 
     return <div className="sprint-session-form-container">
@@ -66,8 +62,8 @@ export default function SprintSessionForm({closeModal, addSession}: Props) {
                 label='Session picture'
                 subLabel='A small picture to quicky identify the sprint session'
                 isRequired={true}
-                file={sprintSessionFormData.picture}
-                setFile={(file: File | null) => handleInputChange('picture', file)}
+                file={sprintSessionFormData.image}
+                setFile={(file: File | null) => handleInputChange('image', file)}
                 placeholder='Click here or drop a picture (SVG, PNG, JPG, JPEG or GIF)'
             />
 
@@ -75,9 +71,9 @@ export default function SprintSessionForm({closeModal, addSession}: Props) {
                 <DatePickerInput
                     label='Start date'
                     isRequired={true}
-                    value={sprintSessionFormData.startDate}
+                    value={sprintSessionFormData.startDate ? DateTime.fromISO(sprintSessionFormData.startDate) : null}
                     placeholder='Enter a start date...'
-                    onChange={(newValue: DateTime | null) => handleInputChange('startDate', newValue)}
+                    onChange={(newValue: DateTime | null) => handleInputChange('startDate', newValue ? newValue.toISO() : null)}
                     disabled={false}
                     placeTop={true}
                 />
@@ -85,9 +81,9 @@ export default function SprintSessionForm({closeModal, addSession}: Props) {
                 <DatePickerInput
                     label='Due date'
                     isRequired={true}
-                    value={sprintSessionFormData.dueDate}
+                    value={sprintSessionFormData.dueDate ? DateTime.fromISO(sprintSessionFormData.dueDate) : null}
                     placeholder='Enter a due date date...'
-                    onChange={(newValue: DateTime | null) => handleInputChange('dueDate', newValue)}
+                    onChange={(newValue: DateTime | null) => handleInputChange('dueDate', newValue ? newValue.toISO() : null)}
                     disabled={false}
                     placeTop={true}
                 />
@@ -98,7 +94,7 @@ export default function SprintSessionForm({closeModal, addSession}: Props) {
             <ActionButton 
                 label='Submit'
                 icon={Check}
-                onClick={handleFormSubmit}
+                onClick={() => handleFormSubmit(sprintSessionFormData)}
                 type={ButtonType.Success}
             />
 

@@ -5,6 +5,36 @@
 
 }
 
+.file-input-container .input-file .preview{
+    position: relative;
+    box-sizing: border-box;
+}
+
+.file-input-container .input-file .preview:hover{
+    cursor: pointer;
+}
+
+.file-input-container .input-file .preview::after {
+    display: none;
+    content: 'X';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 60px;
+    width: 60px;
+    font-weight: bolder;
+    pointer-events: none;
+}
+
+.file-input-container .input-file .preview:hover::after {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .file-input-container .input-file .preview img {
     height: 60px;
     width: 60px;

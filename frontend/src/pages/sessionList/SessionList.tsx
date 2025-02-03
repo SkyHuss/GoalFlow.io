@@ -6,8 +6,8 @@ import SprintSessionCard from '../../components/sprintSession/card/SprintSession
 import ActionButton from '../../components/generic/actionButton/ActionButton';
 import Tab, { TabItem } from '../../components/generic/tab/Tab';
 import Modal from '../../components/generic/modal/Modal';
-import SprintSessionForm from '../../components/sprintSession/form/SprintSessionForm';
-import { getSprintSessionList } from '../../services/api/sprintSessionService';
+import SprintSessionForm, { SprintSessionFormData } from '../../components/sprintSession/form/SprintSessionForm';
+import { getSprintSessionList, postSprintSession } from '../../services/api/sprintSessionService';
 
 export default function SessionList() {
 
@@ -22,8 +22,18 @@ export default function SessionList() {
     const [selectedTabId, setSelectedTabId] = useState<number>(0);
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState<boolean>(false);
 
-    const addSession = (newSession: SprintSession) => {
+    const addSession = async (formData: SprintSessionFormData) => {
+        const newSession: SprintSession = await postSprintSession(formData);
+        setIsCreateSessionModalOpen(false);
         setSessionList((prevSessions) => [...prevSessions, newSession]);
+    };
+
+    const updateSession = (updatedSession: SprintSession) => {
+        setSessionList((prevSessions) =>
+            prevSessions.map((session) => 
+                session.id === updatedSession.id ? updatedSession : session
+            )
+        );
     };
 
     const removeSession = (sessionId: number) => {
@@ -39,7 +49,6 @@ export default function SessionList() {
 
     const handleCreateSession = () => {
         setIsCreateSessionModalOpen(true)
-        console.log("Todo: Creation d une session")
     }
 
     const handleFilters = () => {
@@ -67,13 +76,13 @@ export default function SessionList() {
         </div>
         <div className="session-list">
             {sessionsList.map(session => (
-                <SprintSessionCard session={session} key={session.id} removeSession={removeSession}/>
+                <SprintSessionCard session={session} key={session.id} removeSession={removeSession} updateSession={updateSession}/>
             ))}
         </div>
 
         {isCreateSessionModalOpen && (
             <Modal title='Create a sprint session'  closeModal={() => setIsCreateSessionModalOpen(false)}>
-                <SprintSessionForm closeModal={() => setIsCreateSessionModalOpen(false)} addSession={addSession} />
+                <SprintSessionForm closeModal={() => setIsCreateSessionModalOpen(false)} handleFormSubmit={addSession} />
             </Modal>
         )}
 

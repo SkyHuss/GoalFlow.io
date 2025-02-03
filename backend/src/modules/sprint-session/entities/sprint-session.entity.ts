@@ -12,7 +12,7 @@ export class SprintSession {
   description?: string;
 
   @Column({ nullable: true })
-  image?: string; //chemin de l image
+  image?: string;
 
   @Column({ type: 'timestamp' })
   startDate: Date;

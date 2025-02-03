@@ -1,25 +1,34 @@
 
-import { Delete, Edit, Event, MoreVert } from '@mui/icons-material';
+import { Delete, Edit, Event, MoreVert, NoPhotography } from '@mui/icons-material';
 import type { SprintSession } from "../../../models/SprintSession"
 import './SprintSessionCard.css'
 import { formatDate } from '../../../utils/date';
 import { useEffect, useRef, useState } from 'react';
-import { deleteSprintSession } from '../../../services/api/sprintSessionService';
+import { deleteSprintSession, putSprintSession } from '../../../services/api/sprintSessionService';
 import ConfirmDialog from '../../generic/confirmDialog/ConfirmDialog';
+import SprintSessionForm, { SprintSessionFormData } from '../form/SprintSessionForm';
+import Modal from '../../generic/modal/Modal';
 
 interface Props {
     session: SprintSession;
     removeSession: (sessionId: number) => void; 
+    updateSession: (updatedSession: SprintSession) => void;
 }
 
-export default function SprintSessionCard ({session, removeSession}: Props) {
+export default function SprintSessionCard ({session, removeSession, updateSession}: Props) {
 
     const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
+    const [isModifyModalOpen, setIsModifyModalOpen] = useState<boolean>(false);
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const fakeMembers = [{id: 0, picture: '/assets/fake/fake1.jpg'},{id: 1, picture: '/assets/fake/fake2.jpg'},{id: 2, picture: '/assets/fake/fake3.jpg'}, {id: 3, picture: '/assets/fake/fake4.jpg'}, {id: 4, picture: '/assets/fake/fake5.jpg'},]
     
+    const modifySession = async (formData: SprintSessionFormData) => {
+       const modifiedSession: SprintSession = await putSprintSession(formData);
+       setIsModifyModalOpen(false);
+       updateSession(modifiedSession);
+    }
 
     const handleDropmenu = () => {
         setShowDropdownMenu(!showDropdownMenu);
@@ -36,7 +45,7 @@ export default function SprintSessionCard ({session, removeSession}: Props) {
     };
 
     const handleSessionModify = () => {
-        console.log("Modification de la session: ", session.name)
+        setIsModifyModalOpen(true)
     }
 
     const handleDialogCancel = () => {
@@ -84,6 +93,11 @@ export default function SprintSessionCard ({session, removeSession}: Props) {
             {session.image && (
                 <img src={import.meta.env.VITE_BASE_URL + session.image} alt="" />
             )}
+            {!session.image && (
+                <div className="no-image">
+                    <NoPhotography />
+                </div>
+            )}
         </div>
         <div className="name">
             {session.name}
@@ -112,5 +126,11 @@ export default function SprintSessionCard ({session, removeSession}: Props) {
             </div>
             <div className="due-date"><Event />{formatDate(session.dueDate)}</div>
         </div>
+
+        {isModifyModalOpen && 
+            <Modal closeModal={() => setIsModifyModalOpen(false)} title='Modify a sprint session'>
+                <SprintSessionForm closeModal={() => setIsModifyModalOpen(false)} handleFormSubmit={modifySession} session={session}/>
+            </Modal>
+        }
     </div>
 }
