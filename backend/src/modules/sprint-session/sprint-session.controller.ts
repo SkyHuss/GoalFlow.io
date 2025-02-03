@@ -28,7 +28,7 @@ export class SprintSessionController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<SprintSession | null> {
+  findOne(@Param('id') id: string): Promise<SprintSession | null> {
     return this.sprintSessionService.findById(id);
   }
 
@@ -105,7 +105,7 @@ export class SprintSessionController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<void> {
+  async delete(@Param('id') id: string): Promise<void> {
     const storedSession = await this.sprintSessionService.findById(id);
     if (!storedSession) {
       throw new Error('Session not found');

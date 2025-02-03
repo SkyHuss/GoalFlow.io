@@ -1,5 +1,5 @@
 export interface SprintSession {
-    id: number,
+    id: string,
     name: string;
     description: string;
     image: string;
