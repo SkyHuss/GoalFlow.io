@@ -1,0 +1,8 @@
+.login-container .app-title {
+    -webkit-text-stroke: var(--secondary-100) 10px;
+    font-size: 200px;
+    font-family: "Jaro", serif;
+    color: var(--text-primary);
+    letter-spacing: 5px;	
+    text-shadow: rgb(0, 0, 0) 5px 10px 20px;
+}

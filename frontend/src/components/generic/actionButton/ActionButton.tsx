@@ -8,6 +8,7 @@ interface Props {
     type?: string; // "secondary" or "success" or "danger" or "info"
     outlined?: boolean;
     disabled?: boolean;
+    fullWidth?: boolean;
     onClick?: () => void;
 }
 
@@ -17,11 +18,12 @@ export default function ActionButton({
     type,
     outlined = false,
     disabled = false,
+    fullWidth = false,
     onClick = () => {},
 }: Props) {
     return (
         <button
-            className={`action-button ${type ? type : ''} ${outlined ? 'outlined': ''}`}
+            className={`action-button ${type ? type : ''} ${outlined ? 'outlined': ''} ${fullWidth ? 'w-full' : ''}`}
             onClick={disabled ? ()=> {}: onClick}
         >
             {Icon && <Icon data-testid="svg-icon" />}

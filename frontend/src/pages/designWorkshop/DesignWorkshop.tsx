@@ -13,6 +13,7 @@ import TextAreaInput from '../../components/generic/form/textArea/TextAreaInput'
 import DatePickerInput from '../../components/generic/form/datePicker/DatePickerInput';
 import FileInput from '../../components/generic/form/fileInput/FileInput';
 import ConfirmDialog from '../../components/generic/confirmDialog/ConfirmDialog';
+import PasswordInput from '../../components/generic/form/password/PasswordInput';
 
 export default function DesignWorkshop() {
 
@@ -33,6 +34,7 @@ export default function DesignWorkshop() {
     interface FormData {
         name: string,
         description: string,
+        password: string,
         picture: File | null,
         dueDate: DateTime,
         startDate: DateTime,
@@ -41,6 +43,7 @@ export default function DesignWorkshop() {
     const [formData, setFormData] = useState<FormData>({
         name: '',
         description: '',
+        password: '',
         picture: null,
         startDate: DateTime.now(),
         dueDate: DateTime.now()
@@ -60,7 +63,7 @@ export default function DesignWorkshop() {
                     <ActionButton label='Supprimer' icon={Delete} type={ButtonType.Danger} onClick={() => setIsConfirmDialogOpen(true)}/>
                     {isConfirmDialogOpen && 
                         <ConfirmDialog 
-                            messageTitle='Are tou sure ?' 
+                            messageTitle='Are you sure !???' 
                             message='You are about to delete an element: element name'
                             onCancel={() => setIsConfirmDialogOpen(false)}
                             onConfirm={() => {console.log('confirmed'); setIsConfirmDialogOpen(false)}}
@@ -79,6 +82,14 @@ export default function DesignWorkshop() {
                         onChange={(newValue: string) => handleInputChange('name', newValue)}
                         label='Sprint session title'
                         subLabel='The description of the new sprint session'
+                    />
+                    <PasswordInput
+                        isRequired={true}
+                        value={formData.password}
+                        placeholder='Enter your password...'
+                        onChange={(newValue: string) => handleInputChange('password', newValue)}
+                        label='Enter your password'
+                        subLabel='The description of the type of password'
                     />
                     <TextAreaInput
                             isRequired={false}

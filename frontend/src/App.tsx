@@ -14,6 +14,8 @@ import './constants/style/color.css';
 import './constants/style/font.css';
 import './App.css';
 import DesignWorkshop from './pages/designWorkshop/DesignWorkshop';
+import Login from './pages/auth/login/Login';
+import SignUp from './pages/auth/signUp/SignUp';
 
 function AppLayout() {
   return (
@@ -68,7 +70,15 @@ const router = createBrowserRouter([
       }
       // TODO: rajouter les autres pages de l'app ( session pages, account, settings, ...)
     ]
-  }
+  },
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '/sign-up',
+    element: <SignUp />
+  },
 ])
 
 export default function App() {
