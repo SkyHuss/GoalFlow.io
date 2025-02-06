@@ -15,6 +15,7 @@
 .login-form-container .header .sub-header {
     font-size: var(--x-small);
     color: var(--text-secondary);
+    text-align: center;
     padding: 20px;
 }
 

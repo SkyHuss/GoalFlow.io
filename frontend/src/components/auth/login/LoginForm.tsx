@@ -55,7 +55,7 @@ export default function LoginForm() {
         </div>
 
         <div className="separator">
-            <div className="separator-label">Or</div>
+            <div className="separator-label">or</div>
         </div>
 
         <div className="sso-login-container">
