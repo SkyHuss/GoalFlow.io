@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import LoginForm from "../../../components/auth/login/LoginForm";
 import './Login.css';
 
@@ -15,5 +16,6 @@ export default function Login() {
             <LoginForm />
         </div>
     </div>
+    <ToastContainer position='bottom-right' limit={4} closeOnClick={true} style={{ zIndex: 10000 }} theme="dark"/>
 </div>
 }

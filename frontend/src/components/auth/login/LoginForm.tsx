@@ -3,13 +3,18 @@ import TextInput from "../../generic/form/textInput/TextInput";
 import PasswordInput from "../../generic/form/password/PasswordInput";
 import ActionButton from "../../generic/actionButton/ActionButton";
 import './LoginForm.css'
+import { authClient } from "../../../utils/auth-client";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export interface LoginFormData {
+interface LoginFormData {
     email: string;
     password: string;
 }
 
 export default function LoginForm() {
+
+    const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState<LoginFormData>({
         email: '',
@@ -20,14 +25,30 @@ export default function LoginForm() {
         setCredentials((prev) => ({...prev, [key]: value})) ;
     }
 
-    const handleLogIn = () => {
-        console.log("TODO: implement log in with: ", credentials)
+    const navigateToSignUp = () => {
+        navigate('/sign-up')
+    }
+
+    const handleLogIn = async () => {
+        const response = await authClient.signIn.email({
+            email: credentials.email,
+            password: credentials.password
+        })
+
+        if(response.error) {
+            toast.error(`Error: `+ response.error.message);
+            return;
+        }
+
+        if(response.data) {
+            navigate('/');
+        }
     }
 
     return <div className="login-form-container">
         <div className="header">
             <div className="title">Sign in</div>
-            <div className="sub-header">Don't have an account yet? Create an account <span>here</span></div>
+            <div className="sub-header">Don't have an account yet? Create an account <span onClick={navigateToSignUp}>here</span></div>
         </div>
 
         <div className="form-content">

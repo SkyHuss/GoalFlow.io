@@ -1,4 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
@@ -29,7 +31,8 @@ function AppLayout() {
         </div>
       </div>
       <BottomNavBar />
-      </div>
+      <ToastContainer position='bottom-right' limit={4} closeOnClick={true} style={{ zIndex: 10000 }} theme='dark'/>
+    </div>
   )
 }
 
