@@ -1,0 +1,110 @@
+.sign-up-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: var(--secondary-400);
+    height: 100vh;
+}
+
+.sign-up-container .sign-up-bg-image {
+    background-image: url(assets/logo/bgLogin.jpg);
+    width: 66%;
+    border-radius: 8px;
+}
+
+.sign-up-container .sign-up-bg-image .app-title-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.sign-up-container .app-title {
+    -webkit-text-stroke: var(--secondary-100) 10px;
+    font-size: 200px;
+    font-family: "Jaro", serif;
+    color: var(--text-primary);
+    letter-spacing: 5px;	
+    text-shadow: rgb(0, 0, 0) 5px 10px 20px;
+}
+
+.sign-up-container .sign-up-content {
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-up-container .sign-up-content .mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1850px) {
+
+    .sign-up-container .sign-up-bg-image {
+        width: 50%;
+    }
+
+    .sign-up-container .app-title {
+        font-size: 100px;
+        -webkit-text-stroke: var(--secondary-100) 5px;
+    }
+
+    .sign-up-container .sign-up-content {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 1345px) {
+
+    .sign-up-container .sign-up-bg-image {
+        width: 40%;
+    }
+
+    .sign-up-container .sign-up-content {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .sign-up-container .sign-up-bg-image {
+        display: none;
+    }
+
+    .sign-up-container .sign-up-content {
+        position: relative;
+        background-image: url(assets/logo/bgLogin.jpg);
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    .sign-up-container .sign-up-content .sign-up-wrapper {
+        background-color: rgba(255, 255, 255, 0.1);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sign-up-container .sign-up-content .mobile.app-title {
+        display: block;
+        position: absolute;
+        font-size: 64px;
+        top: -25px;
+    }
+}
+
+@media screen and (max-width: 645px) {
+
+    .sign-up-container {
+        padding: 0;
+    }
+
+    .sign-up-container .sign-up-content .mobile.app-title {
+        display: none;
+    }
+}

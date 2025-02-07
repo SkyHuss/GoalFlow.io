@@ -7,11 +7,12 @@ interface Props {
     icon: SvgIconComponent
     label: string;
     link: string;
+    onClick?: () => Promise<void>;
 }
 
-export default function ProfileItem({icon: Icon, label, link}: Props) {
+export default function ProfileItem({icon: Icon, label, link, onClick}: Props) {
 
-    return <NavLink to={link} className="profile-item-container">
+    return <NavLink to={link} className="profile-item-container" onClick={onClick}>
         <Icon className="icon"/>
         {label}
     </NavLink>

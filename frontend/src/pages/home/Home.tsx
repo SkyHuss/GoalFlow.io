@@ -1,5 +1,7 @@
 import './Home.css'
 
 export default function Home() {
-    return <div className="home-container">Home page</div>
+
+    return <div className="home-container">
+    </div>
 }

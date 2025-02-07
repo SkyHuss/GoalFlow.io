@@ -1,4 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
@@ -14,6 +16,8 @@ import './constants/style/color.css';
 import './constants/style/font.css';
 import './App.css';
 import DesignWorkshop from './pages/designWorkshop/DesignWorkshop';
+import Login from './pages/auth/login/Login';
+import SignUp from './pages/auth/signUp/SignUp';
 
 function AppLayout() {
   return (
@@ -27,7 +31,8 @@ function AppLayout() {
         </div>
       </div>
       <BottomNavBar />
-      </div>
+      <ToastContainer position='bottom-right' limit={4} closeOnClick={true} style={{ zIndex: 10000 }} theme='dark'/>
+    </div>
   )
 }
 
@@ -68,7 +73,15 @@ const router = createBrowserRouter([
       }
       // TODO: rajouter les autres pages de l'app ( session pages, account, settings, ...)
     ]
-  }
+  },
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '/sign-up',
+    element: <SignUp />
+  },
 ])
 
 export default function App() {

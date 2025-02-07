@@ -1,0 +1,97 @@
+.login-form-container {
+    border-radius: 8px;
+    padding: 20px;
+    background-color: var(--secondary-300);
+}
+
+.login-form-container .header .title {
+    font-size: var(--h3);
+    font-weight: bold;
+    color: var(--text-primary);
+    border-bottom: solid 1px var(--text-secondary);
+    padding: 10px 0;
+}
+
+.login-form-container .header .sub-header {
+    font-size: var(--x-small);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 20px;
+}
+
+.login-form-container .header .sub-header span {
+    color: var(--primary-200);
+    text-decoration: underline;
+}
+
+.login-form-container .header .sub-header span:hover {
+    cursor: pointer;
+}
+
+.login-form-container .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+.login-form-container .form-content .form-actions {
+    width: 100%;
+}
+
+.login-form-container .separator {
+    height: 1px;
+    border-bottom: solid 1px var(--text-secondary);
+    margin-top: 30px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.separator .separator-label {
+    color: var(--text-secondary);
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 10px;
+    background-color: var(--secondary-300);
+}
+
+.login-form-container .sso-login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: var(--x-small);
+}
+
+.login-form-container .sso-login-container .items {
+    display: flex;
+    padding: 10px 0;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.login-form-container .sso-login-container .items  .sso-login-item {
+    background-color: var(--secondary-100);
+    height: 60px;
+    padding: 10px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.login-form-container .sso-login-container .items  .sso-login-item:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+}
+
+.login-form-container .sso-login-container .items  .sso-login-item img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}

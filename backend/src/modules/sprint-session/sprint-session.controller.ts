@@ -10,29 +10,34 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import * as fs from 'fs';
-import { SprintSession } from './entities/sprint-session.entity';
+import { SprintSession } from './entities/sprint-session.entities';
 import { SprintSessionService } from './sprint-session.service';
 import { CreateSprintSessionDto } from './dto/create-sprint-session.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { ModifySprintSessionDto } from './dto/modify-sprint-session.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('sprint-session')
+@ApiTags('Sprint sessions')
 export class SprintSessionController {
   constructor(private readonly sprintSessionService: SprintSessionService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get sprint sessions list' })
   findAll(): Promise<SprintSession[]> {
     return this.sprintSessionService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a single sprint session' })
   findOne(@Param('id') id: string): Promise<SprintSession | null> {
     return this.sprintSessionService.findById(id);
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create a sprint session' })
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
@@ -57,6 +62,7 @@ export class SprintSessionController {
   }
 
   @Put()
+  @ApiOperation({ summary: 'Modify a sprint session' })
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
@@ -105,6 +111,7 @@ export class SprintSessionController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a sprint session' })
   async delete(@Param('id') id: string): Promise<void> {
     const storedSession = await this.sprintSessionService.findById(id);
     if (!storedSession) {
