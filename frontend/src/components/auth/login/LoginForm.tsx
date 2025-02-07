@@ -6,11 +6,9 @@ import './LoginForm.css'
 import { authClient } from "../../../utils/auth-client";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { LoginFormData } from "../../../services/api/authService";
 
-interface LoginFormData {
-    email: string;
-    password: string;
-}
+
 
 export default function LoginForm() {
 

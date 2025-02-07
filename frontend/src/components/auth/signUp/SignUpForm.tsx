@@ -5,14 +5,10 @@ import './SignUpForm.css';
 import TextInput from "../../generic/form/textInput/TextInput";
 import PasswordInput from "../../generic/form/password/PasswordInput";
 import FileInput from "../../generic/form/fileInput/FileInput";
+import { resizeAndCropImage } from "../../../utils/images";
+import { signUp, SignUpFormData } from "../../../services/api/authService";
+import { toast } from "react-toastify";
 
-interface SignUpFormData {
-    email: string;
-    password: string;
-    firstname: string;
-    lastname: string;
-    profilePicture: File | null;
-}
 
 export default function SignUpForm() {
 
@@ -34,7 +30,26 @@ export default function SignUpForm() {
         setCredentials((prev) => ({...prev, [key]: value})) ;
     }
 
+    const handleProfilePicture = async (file: File | null) => {
+        if(file){
+            const resizedImage = await resizeAndCropImage(file, 300, 300);
+            setCredentials((prev) => ({...prev, profilePicture: resizedImage}))
+        }
+    }
+
     const handleSignUp = async () => {
+
+        const response = await signUp(credentials);
+
+        if(response.error) {
+            toast.error(`Error: `+ response.error.message);
+            return;        
+        }
+
+        if(response.data) {
+            toast.success(`User: ${credentials.email} created with success`)
+            navigate('/');
+        }
 
     }
 
@@ -87,7 +102,7 @@ export default function SignUpForm() {
                 label='Profil picture'
                 isRequired={true}
                 file={credentials.profilePicture}
-                setFile={(file: File | null) => handleInputChange('profilePicture', file)}
+                setFile={(file: File | null) => handleProfilePicture(file)}
                 placeholder='Click here or drop a picture (SVG, PNG, JPG, JPEG or GIF)'
             />
 

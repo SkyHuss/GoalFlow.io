@@ -1,29 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDropDown, Diversity1, ExitToApp, Payments, Person, Settings } from '@mui/icons-material';
 import { generateColorFromName } from '../../utils/color';
-import { User } from '../../models/User'
 import ProfileItem from './profileItem/ProfilItem';
 import './Profile.css'
-
+import { authClient } from '../../utils/auth-client';
+import { User } from 'better-auth';
+import { signOut } from '../../services/api/authService';
+import { toast } from 'react-toastify';
 
 export default function Profile() {
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const generateInitials = (user: User): string => {
-        return user.firstname[0] + user.lastname[0]
+    const generateInitials = (fullname: string): string => {
+        const names = fullname.split(' ');
+        return names[0][0] + names[1][0]
     }
 
     const fakeUser: User = {
-        id: '1',
-        firstname: 'Florian',
-        lastname: 'Gonzales',
-        email: 'fl.gonzales5790@gmail.com',
-        profilPicture: '/assets/fake/pp.PNG',
-        hasProfilPicture: false,
+        id: 'fakeid',
+        email: 'fakeEmail@gmail.com',
+        name: 'Jean-Michel Fake',
+        emailVerified: false, 
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 
-    const [currentUser] = useState<User>(fakeUser);
+    const [connectedUser, setConnectedUser] = useState<User | null>(fakeUser);
     const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
 
     const openProfileDropdown = () => {
@@ -37,6 +40,22 @@ export default function Profile() {
     }
 
     useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const session = await authClient.getSession();
+
+                if (session?.data?.user) {
+                    setConnectedUser(session.data.user);
+                }
+            } catch {
+                toast.error("Error : Can't get the user session");
+            }
+        };
+    
+        fetchUser();
+    }, []);
+
+    useEffect(() => {
         document.addEventListener('mousedown', handleDropdownClickOutside);
 
         return () => {
@@ -46,17 +65,24 @@ export default function Profile() {
 
     return <div className="profile-container" onClick={openProfileDropdown}>
         <div className="avatar">
-            {currentUser.hasProfilPicture && currentUser.profilPicture ? 
-                <img src={currentUser.profilPicture} /> :
-                <div className="no-avatar" style={{backgroundColor: generateColorFromName(currentUser.firstname + currentUser.lastname)}}>
-                    {generateInitials(currentUser)}
+
+            {connectedUser && connectedUser.image && 
+                <img src={connectedUser.image} />
+
+            }
+
+            {connectedUser && !connectedUser.image &&
+                <div className="no-avatar" style={{backgroundColor: generateColorFromName(connectedUser.name)}}>
+                    {generateInitials(connectedUser.name)}
                 </div>
             }
         </div>
-        <div className="infos">
-            <div className="fullname">{currentUser.firstname} {currentUser.lastname.toLocaleUpperCase()}</div>
-            <div className="mail">{currentUser.email}</div>
-        </div>
+        {connectedUser && 
+            <div className="infos">
+                <div className="fullname">{connectedUser.name.split(' ')[0]} {connectedUser.name.split(' ')[1].toLocaleUpperCase()}</div>
+                <div className="mail">{connectedUser.email}</div>
+            </div>
+        }
         <ArrowDropDown className='icon'/>
 
         {isProfilOpen && 
@@ -66,7 +92,7 @@ export default function Profile() {
                 <ProfileItem icon={Diversity1} label='Contacts' link='/'/>
                 <ProfileItem icon={Payments} label='Subscription' link='/'/>
                 <ProfileItem icon={Settings} label='Settings' link='/'/>
-                <ProfileItem icon={ExitToApp} label='Disconnect' link='/'/>
+                <ProfileItem icon={ExitToApp} label='Disconnect' link='/login' onClick={() => signOut()}/>
             </div>
         }
     </div>
