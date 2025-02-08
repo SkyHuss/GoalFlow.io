@@ -104,7 +104,6 @@ export default function SprintSessionCard ({session, removeSession, updateSessio
         </div>
         <div className="description">
             {session.description}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quae laborum atque, aliquam id quaerat necessitatibus magnam vel voluptatem veritatis odio laboriosam error rem ipsa a facilis alias, fuga praesentium?
         </div>
         <div className="progress-container">
             <div className="progress-bar">

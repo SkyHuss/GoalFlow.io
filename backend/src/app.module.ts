@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SprintSessionModule } from './modules/sprint-session/sprint-session.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     SprintSessionModule,
     AuthModule,
+    AdminModule,
   ],
 })
 export class AppModule {}

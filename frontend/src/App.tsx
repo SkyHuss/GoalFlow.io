@@ -18,6 +18,7 @@ import './App.css';
 import DesignWorkshop from './pages/designWorkshop/DesignWorkshop';
 import Login from './pages/auth/login/Login';
 import SignUp from './pages/auth/signUp/SignUp';
+import AdminPanel from './pages/adminPanel/AdminPanel';
 
 function AppLayout() {
   return (
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/history',
         element: <History />
+      },
+      {
+        path: '/admin',
+        element: <AdminPanel />
       },
       {
         path: '/design',

@@ -1,0 +1,20 @@
+.admin-panel-container {
+    height: 100%;
+    padding: 20px;
+}
+
+.admin-panel-container .header .title{
+    font-size: var(--h1);
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.admin-panel-container .header .sub-title {
+    font-size: var(--h4);
+    color: var(--text-secondary);
+}
+
+.admin-panel-container .content {
+    height: calc(100% - 90px);
+    overflow: auto;
+}

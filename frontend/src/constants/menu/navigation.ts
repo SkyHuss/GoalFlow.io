@@ -1,7 +1,8 @@
-import { CrisisAlert, DirectionsRun, History, NotificationsOutlined, PieChart } from "@mui/icons-material";
+import { AdminPanelSettings, CrisisAlert, DirectionsRun, History, NotificationsOutlined, PieChart } from "@mui/icons-material";
 import { NavigationItem } from "../../components/sidebar/sidebarItem/SidebarItem";
 
 export const sidebarItems: NavigationItem[] = [
+    { label: 'Admin panel',icon: AdminPanelSettings, path: '/admin'},
     { label: 'Sprints sessions', icon: DirectionsRun, path: '/session-list' },
     { label: 'Focus mode', icon: CrisisAlert, path: '/focus'},
     { label: 'Analytics', icon: PieChart, path: '/analytics'},

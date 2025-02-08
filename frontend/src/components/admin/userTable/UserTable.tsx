@@ -1,0 +1,103 @@
+import { useEffect, useState } from 'react'
+import './UserTable.css'
+import { User } from 'better-auth'
+import { getAllUsers } from '../../../services/api/adminService'
+import { toast } from 'react-toastify'
+import ActionButton from '../../generic/actionButton/ActionButton'
+import { Add, Delete, Edit, NoPhotography, Tune } from '@mui/icons-material'
+import { truncateString } from '../../../utils/strings'
+import { ButtonType } from '../../../constants/buttons/buttonsTypes'
+
+export default function UserTable() {
+
+    const [users, setUsers] = useState<User[]>([]);
+
+    const handleFiltering = () => {
+        console.log("Todo: implement filtering",)
+    }
+
+    const handleUserCreate = () => {
+        console.log("Todo: create a user", )
+    }
+
+    const editUser = (user: User) => {
+        console.log("Todo: modifier le user: ", user.name)
+    }
+
+    const deleteUser = (user: User) => {
+        console.log("Todo: supprimer le user: ", user.name)
+    }
+
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const appUsers: User[] = await getAllUsers(); 
+                if (appUsers && appUsers.length > 0) {
+                    setUsers(appUsers);
+                }
+            } catch (error) {
+                toast.error("Error during users list retrieval: " + error)
+            }
+        }
+        fetchUsers();
+    }, [])
+
+    return <div className="user-table-container">
+        <div className="filters-container">
+            <div className="label">All users <span>( {users.length} )</span></div>
+            <div className="filters">
+                {/* TODO: dev searchbar */}
+                <ActionButton label='Filters' icon={Tune} onClick={handleFiltering} outlined/>
+                <ActionButton label='Add user' icon={Add}  onClick={handleUserCreate} type={ButtonType.Success}/>
+            </div>
+        </div>
+        {users.length > 0 ? (
+            <table className='user-table-content'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Profile picutre</th>
+                            <th>Fullname</th>
+                            <th>Email</th>
+                            <th>Email verified</th>
+                            <th>Creation date</th>
+                            <th>Last update date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map(user => (
+                            <tr key={user.id}>
+                                <td>{truncateString(user.id, 20, '...')}</td>
+                                <td>
+                                    <div className="image-container">
+                                        {user.image ? 
+                                            <img src={user.image} alt={user.name} className='user-avatar'/> : 
+                                            <div className="no-image">
+                                                <NoPhotography />
+                                            </div>    
+                                        }   
+                                    </div>
+
+                                </td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.emailVerified ? '✅' : '❌'}</td>
+                                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                                <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
+                                <td>
+                                    <div className="actions-container">
+                                        <ActionButton icon={Edit}  onClick={() => editUser(user)} label='Edit' outlined/>
+                                        <ActionButton icon={Delete}  onClick={() => deleteUser(user)} label='Delete' type={ButtonType.Danger}/>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+            </table>
+        ) : (
+            <p>No user found</p>
+        )}
+    </div>
+}
