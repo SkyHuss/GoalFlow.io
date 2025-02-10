@@ -21,7 +21,7 @@ export default function SignUpForm() {
         password: '',
         firstname: '',
         lastname: '',
-        profilePicture: null
+        profilePicture: null,
     });
 
 

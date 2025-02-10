@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 import './UserTable.css'
 import { User } from 'better-auth'
-import { getAllUsers } from '../../../services/api/adminService'
+import { getAllUsers, removeUser } from '../../../services/api/adminService'
 import { toast } from 'react-toastify'
 import ActionButton from '../../generic/actionButton/ActionButton'
 import { Add, Delete, Edit, NoPhotography, Tune } from '@mui/icons-material'
 import { truncateString } from '../../../utils/strings'
 import { ButtonType } from '../../../constants/buttons/buttonsTypes'
+import ConfirmDialog from '../../generic/confirmDialog/ConfirmDialog'
 
 export default function UserTable() {
 
     const [users, setUsers] = useState<User[]>([]);
+    const [focusedUser, setFocusedUser] = useState<User | null>(null)
+    const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
 
     const handleFiltering = () => {
         console.log("Todo: implement filtering",)
@@ -20,14 +23,39 @@ export default function UserTable() {
         console.log("Todo: create a user", )
     }
 
+    const handleDeleteUser = (user: User) => {
+        setFocusedUser(user);
+        setIsConfirmDialogOpen(true);
+    }
+
+    const handleDeleteCancel = () => {
+        setFocusedUser(null);
+        setIsConfirmDialogOpen(false);
+    }
+
     const editUser = (user: User) => {
         console.log("Todo: modifier le user: ", user.name)
     }
 
-    const deleteUser = (user: User) => {
-        console.log("Todo: supprimer le user: ", user.name)
-    }
+    const deleteUser = async () => {
+        if(focusedUser) {
+            try {
+                const response = await removeUser(focusedUser.id);
+                if(response.data?.success) {
+                    toast.success(`User: ${focusedUser.name} successfully deleted`);
+                    setUsers((prevUsers) => prevUsers.filter(item => item.id !== focusedUser.id ))
+                }
 
+                if(response.error) {
+                    toast.error("Error: " + response.error.message);
+                }
+    
+            } catch (error) {
+                toast.error("Error: " + error);
+            }
+        }
+        setIsConfirmDialogOpen(false);
+    } 
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -89,7 +117,7 @@ export default function UserTable() {
                                 <td>
                                     <div className="actions-container">
                                         <ActionButton icon={Edit}  onClick={() => editUser(user)} label='Edit' outlined/>
-                                        <ActionButton icon={Delete}  onClick={() => deleteUser(user)} label='Delete' type={ButtonType.Danger}/>
+                                        <ActionButton icon={Delete}  onClick={() => handleDeleteUser(user)} label='Delete' type={ButtonType.Danger}/>
                                     </div>
                                 </td>
                             </tr>
@@ -99,5 +127,13 @@ export default function UserTable() {
         ) : (
             <p>No user found</p>
         )}
+        {isConfirmDialogOpen && 
+            <ConfirmDialog 
+                messageTitle='Are you sure ?'
+                message={`You are about to delete the user named: ${focusedUser?.name}`}
+                onCancel={handleDeleteCancel}
+                onConfirm={() => deleteUser()}
+            />
+        }
     </div>
 }

@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { admin } from 'better-auth/plugins';
 import { Pool } from 'pg';
 
 const pgConnectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
@@ -11,4 +12,5 @@ export const auth = betterAuth({
     enabled: true,
   },
   trustedOrigins: ['http://localhost:5173'],
+  plugins: [admin()],
 });
