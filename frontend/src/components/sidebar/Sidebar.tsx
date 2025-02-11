@@ -4,11 +4,13 @@ import { ExpandCircleDownOutlined, Menu } from '@mui/icons-material';
 
 import { sidebarItems } from '../../constants/menu/navigation';
 import SidebarItem from './sidebarItem/SidebarItem';
+import { useUserStore } from '../../hooks/useUserStore';
 
 
 export default function Sidebar() {
 
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const {user} = useUserStore();
 
     const collapseSidebar = () => {
         setIsCollapsed(!isCollapsed);
@@ -20,7 +22,9 @@ export default function Sidebar() {
         </div>
 
         <div className="global-menu-container">                
-            {sidebarItems.map(item => (
+            {sidebarItems
+                .filter(item => !(item.role === 'admin' && user?.role !== 'admin'))
+                .map(item => (
                 <SidebarItem key={item.label} item={item} isCollapsed={isCollapsed} />
             ))}
         </div>

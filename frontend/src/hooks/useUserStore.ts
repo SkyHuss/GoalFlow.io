@@ -2,8 +2,12 @@ import { User } from "better-auth";
 import { create } from "zustand";
 import { getCurrentUserSession } from "../services/api/authService";
 
+export interface AppUser extends User {
+    role?: string | null | undefined;
+}
+
 interface UserStore {
-    user: User | null,
+    user: AppUser | null,
     loading: boolean,
     error: string | null,
     fetchCurrentUser: () => Promise<void>,
@@ -29,3 +33,7 @@ export const useUserStore = create<UserStore>()((set) => ({
     },
     clearUser: () => set({user: null, error: null})
 }))
+
+export const globalUserUpdate = (nextUser: AppUser) => {
+    useUserStore.setState({user: nextUser})
+}

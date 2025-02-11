@@ -1,31 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDropDown, Autorenew, Diversity1, ExitToApp, Loop, NoPhotography, Payments, Person, Settings } from '@mui/icons-material';
+import { ArrowDropDown, Autorenew, Diversity1, ExitToApp, NoPhotography, Payments, Person, Settings } from '@mui/icons-material';
 import { generateColorFromName } from '../../utils/color';
 import ProfileItem from './profileItem/ProfilItem';
 import './Profile.css'
 import { signOut } from '../../services/api/authService';
-import { useUserStore } from '../../store/userStore';
+import { useUserStore } from '../../hooks/useUserStore';
 
 export default function Profile() {
 
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
 
     const {user, loading, fetchCurrentUser, clearUser} = useUserStore();
-
-    useEffect(() => {
-        fetchCurrentUser();
-        
-        return () => {
-            clearUser();
-        }
-    }, [fetchCurrentUser, clearUser])
 
     const generateInitials = (fullname: string): string => {
         const names = fullname.split(' ');
         return names[0][0] + names[1][0]
     }
-
-    const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
 
     const openProfileDropdown = () => {
         setIsProfileOpen(true);
@@ -44,6 +35,14 @@ export default function Profile() {
             document.removeEventListener('mousedown', handleDropdownClickOutside)
         };
     }, [])
+
+    useEffect(() => {
+        fetchCurrentUser();
+        
+        return () => {
+            clearUser();
+        }
+    }, [fetchCurrentUser, clearUser]);
 
     return <div className="profile-container" onClick={openProfileDropdown}>
         <div className="avatar">

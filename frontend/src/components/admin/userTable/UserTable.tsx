@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import './UserTable.css'
-import { User } from 'better-auth'
 import { getAllUsers, removeUser } from '../../../services/api/adminService'
 import { toast } from 'react-toastify'
 import ActionButton from '../../generic/actionButton/ActionButton'
@@ -8,22 +6,24 @@ import { Add, Delete, Edit, NoPhotography, Tune } from '@mui/icons-material'
 import { truncateString } from '../../../utils/strings'
 import { ButtonType } from '../../../constants/buttons/buttonsTypes'
 import ConfirmDialog from '../../generic/confirmDialog/ConfirmDialog'
+import { AppUser } from '../../../hooks/useUserStore'
+import './UserTable.css'
 
 export default function UserTable() {
 
-    const [users, setUsers] = useState<User[]>([]);
-    const [focusedUser, setFocusedUser] = useState<User | null>(null)
+    const [users, setUsers] = useState<AppUser[]>([]);
+    const [focusedUser, setFocusedUser] = useState<AppUser | null>(null)
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
 
     const handleFiltering = () => {
-        console.log("Todo: implement filtering",)
+        console.log("Todo: implement filtering")
     }
 
     const handleUserCreate = () => {
         console.log("Todo: create a user", )
     }
 
-    const handleDeleteUser = (user: User) => {
+    const handleDeleteUser = (user: AppUser) => {
         setFocusedUser(user);
         setIsConfirmDialogOpen(true);
     }
@@ -33,7 +33,7 @@ export default function UserTable() {
         setIsConfirmDialogOpen(false);
     }
 
-    const editUser = (user: User) => {
+    const editUser = (user: AppUser) => {
         console.log("Todo: modifier le user: ", user.name)
     }
 
@@ -60,7 +60,7 @@ export default function UserTable() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const appUsers: User[] = await getAllUsers(); 
+                const appUsers: AppUser[] = await getAllUsers(); 
                 if (appUsers && appUsers.length > 0) {
                     setUsers(appUsers);
                 }
@@ -87,6 +87,7 @@ export default function UserTable() {
                             <th>Id</th>
                             <th>Profile picutre</th>
                             <th>Fullname</th>
+                            <th>Role</th>
                             <th>Email</th>
                             <th>Email verified</th>
                             <th>Creation date</th>
@@ -110,6 +111,7 @@ export default function UserTable() {
 
                                 </td>
                                 <td>{user.name}</td>
+                                <td>{user.role ? user.role : null}</td>
                                 <td>{user.email}</td>
                                 <td>{user.emailVerified ? '✅' : '❌'}</td>
                                 <td>{new Date(user.createdAt).toLocaleDateString()}</td>
