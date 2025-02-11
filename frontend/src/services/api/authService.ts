@@ -13,6 +13,9 @@ export interface SignUpFormData {
     profilePicture: string | null;
 }
 
+export const getCurrentUserSession = async () => {
+    return await authClient.getSession();
+}
 
 //Authentificate a user
 export const logIn = async (credentials: LoginFormData) => {
