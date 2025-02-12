@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0",
+    "@webeetle/react-headless-hooks": "^0.2.0",
     "axios": "^1.7.9",
     "better-auth": "^1.1.15",
     "luxon": "^3.5.0",

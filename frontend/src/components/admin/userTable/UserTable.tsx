@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getAllUsers, removeUser } from '../../../services/api/adminService'
 import { toast } from 'react-toastify'
 import ActionButton from '../../generic/actionButton/ActionButton'
@@ -8,12 +8,17 @@ import { ButtonType } from '../../../constants/buttons/buttonsTypes'
 import ConfirmDialog from '../../generic/confirmDialog/ConfirmDialog'
 import { AppUser } from '../../../hooks/useUserStore'
 import './UserTable.css'
+import Paginator from '../../generic/pagination/Paginator'
 
 export default function UserTable() {
 
     const [users, setUsers] = useState<AppUser[]>([]);
     const [focusedUser, setFocusedUser] = useState<AppUser | null>(null)
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+    const ROW_HEIGHT = 90;
+    const tableContainerRef = useRef<HTMLDivElement>(null);
 
     const handleFiltering = () => {
         console.log("Todo: implement filtering")
@@ -71,7 +76,25 @@ export default function UserTable() {
         fetchUsers();
     }, [])
 
-    return <div className="user-table-container">
+    useEffect(() => {
+        const updateItemsPerPage = () => {
+            if (tableContainerRef.current) {
+                const containerHeight = tableContainerRef.current.clientHeight - 175; //105px for the thead style and header style
+                const calculatedItems = Math.floor(containerHeight / ROW_HEIGHT);
+                setItemsPerPage(calculatedItems > 0 ? calculatedItems : 1); 
+            }
+        };
+
+        updateItemsPerPage(); // Appeler une première fois
+        window.addEventListener("resize", updateItemsPerPage); // Mise à jour lors du resize
+
+        return () => window.removeEventListener("resize", updateItemsPerPage);
+    }, []);
+
+    const paginatedUsers = users.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const pagesNumber = Math.ceil(users.length / itemsPerPage)
+
+    return <div className="user-table-container" ref={tableContainerRef}>
         <div className="filters-container">
             <div className="label">All users <span>( {users.length} )</span></div>
             <div className="filters">
@@ -96,7 +119,8 @@ export default function UserTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
+                        {paginatedUsers
+                            .map(user => (
                             <tr key={user.id}>
                                 <td>{truncateString(user.id, 20, '...')}</td>
                                 <td>
@@ -129,6 +153,10 @@ export default function UserTable() {
         ) : (
             <p>No user found</p>
         )}
+        {pagesNumber > 1 && 
+            <Paginator activePage={currentPage} numPages={pagesNumber} setCurrentPage={setCurrentPage}/>
+        }
+
         {isConfirmDialogOpen && 
             <ConfirmDialog 
                 messageTitle='Are you sure ?'

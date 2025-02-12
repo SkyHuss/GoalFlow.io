@@ -1,7 +1,8 @@
 .user-table-container {
     height: 100%;
     padding-top: 10px;
-
+    display: flex;
+    flex-direction: column;
 }
 
 .user-table-container .filters-container {
@@ -58,7 +59,6 @@
     max-width: 150px;
     height: 90px;
     padding: 5px;
-    /* border: solid 1px var(--secondary-300); */
     text-align: center;
 
 }
@@ -90,5 +90,6 @@
 
 .user-table-container .user-table-content tbody .actions-container {
     display: flex;
+    justify-content: center;
     gap: 8px;
 }
