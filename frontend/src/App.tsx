@@ -20,6 +20,7 @@ import Login from './pages/auth/login/Login';
 import SignUp from './pages/auth/signUp/SignUp';
 import AdminPanel from './pages/adminPanel/AdminPanel';
 import { useUserStore } from './hooks/useUserStore';
+import { useEffect, useState } from 'react';
 
 function AppLayout() {
   return (
@@ -38,10 +39,20 @@ function AppLayout() {
   )
 }
 
-const ProtectedRoute = () => {
-  const {user, loading} = useUserStore();
+function ProtectedRoute() {
+  
+  const {user, loading, fetchCurrentUser} = useUserStore();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  if(loading) {
+  useEffect(() => {
+    async function checkUser() {
+      await fetchCurrentUser();
+      setIsLoading(false);
+    }
+    checkUser();
+  }, [fetchCurrentUser]);
+
+  if(isLoading || loading) {
     return <div>loading ...</div>
   }
 

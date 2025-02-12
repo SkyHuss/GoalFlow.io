@@ -11,7 +11,6 @@ interface UserStore {
     loading: boolean,
     error: string | null,
     fetchCurrentUser: () => Promise<void>,
-    clearUser: () => void,
 }
 
 export const useUserStore = create<UserStore>()((set) => ({
@@ -30,8 +29,7 @@ export const useUserStore = create<UserStore>()((set) => ({
         } catch {
             set({error: "Error : Can't get the user session", loading: false})
         }
-    },
-    clearUser: () => set({user: null, error: null})
+    }
 }))
 
 export const globalUserUpdate = (nextUser: AppUser) => {

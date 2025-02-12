@@ -11,7 +11,7 @@ export default function Profile() {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
 
-    const {user, loading, fetchCurrentUser, clearUser} = useUserStore();
+    const {user, loading, fetchCurrentUser} = useUserStore();
 
     const generateInitials = (fullname: string): string => {
         const names = fullname.split(' ');
@@ -39,10 +39,7 @@ export default function Profile() {
     useEffect(() => {
         fetchCurrentUser();
         
-        return () => {
-            clearUser();
-        }
-    }, [fetchCurrentUser, clearUser]);
+    }, [fetchCurrentUser]);
 
     return <div className="profile-container" onClick={openProfileDropdown}>
         <div className="avatar">
