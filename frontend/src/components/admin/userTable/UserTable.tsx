@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createUser, getAllUsers, removeUser } from '../../../services/api/adminService'
 import { toast } from 'react-toastify'
 import ActionButton from '../../generic/actionButton/ActionButton'
-import { Add, Check, Close, Delete, Edit, NoPhotography, Tune } from '@mui/icons-material'
+import { Add, Check, Close, Delete, NoPhotography, Tune } from '@mui/icons-material'
 import { truncateString } from '../../../utils/strings'
 import { ButtonType } from '../../../constants/buttons/buttonsTypes'
 import ConfirmDialog from '../../generic/confirmDialog/ConfirmDialog'
@@ -55,10 +55,6 @@ export default function UserTable() {
     const handleDeleteCancel = () => {
         setFocusedUser(null);
         setIsConfirmDialogOpen(false);
-    }
-
-    const editUser = (user: AppUser) => {
-        console.log("Todo: modifier le user: ", user.name)
     }
 
     const deleteUser = async () => {
@@ -161,7 +157,6 @@ export default function UserTable() {
                                 <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
                                 <td>
                                     <div className="actions-container">
-                                        <ActionButton icon={Edit}  onClick={() => editUser(user)} label='Edit' outlined/>
                                         <ActionButton icon={Delete}  onClick={() => handleDeleteUser(user)} label='Delete' type={ButtonType.Danger}/>
                                     </div>
                                 </td>
