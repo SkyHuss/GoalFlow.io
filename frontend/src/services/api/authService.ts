@@ -13,6 +13,9 @@ export interface SignUpFormData {
     profilePicture: string | null;
 }
 
+export const getCurrentUserSession = async () => {
+    return await authClient.getSession();
+}
 
 //Authentificate a user
 export const logIn = async (credentials: LoginFormData) => {
@@ -22,7 +25,7 @@ export const logIn = async (credentials: LoginFormData) => {
     })
 }
 
-//Create user account
+//Create and signUp a User
 export const signUp = async (credentials: SignUpFormData) => {
     return authClient.signUp.email({
         name: credentials.firstname + ' ' + credentials.lastname,

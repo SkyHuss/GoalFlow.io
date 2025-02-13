@@ -1,38 +1,11 @@
 .sign-up-form-container {
-    border-radius: 8px;
-    padding: 20px;
-    background-color: var(--secondary-300);
-}
-
-.sign-up-form-container .header .title {
-    font-size: var(--h3);
-    font-weight: bold;
-    color: var(--text-primary);
-    border-bottom: solid 1px var(--text-secondary);
-    padding: 10px 0;
-}
-
-.sign-up-form-container .header .sub-header {
-    font-size: var(--x-small);
-    color: var(--text-secondary);
-    text-align: center;
-    padding: 20px;
-}
-
-.sign-up-form-container .header .sub-header span {
-    color: var(--primary-200);
-    text-decoration: underline;
-}
-
-.sign-up-form-container .header .sub-header span:hover {
-    cursor: pointer;
+    padding: 20px 0;
 }
 
 .sign-up-form-container .form-content {
     display: flex;
     flex-direction: column;
     gap: 30px;
-
     max-height: 90vh;
     overflow: auto;
 }
@@ -41,7 +14,6 @@
     display: flex;
     gap: 10px;
 } 
-
 
 .sign-up-form-container .form-content .form-actions {
     width: 100%;

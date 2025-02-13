@@ -7,8 +7,7 @@ import { authClient } from "../../../utils/auth-client";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { LoginFormData } from "../../../services/api/authService";
-
-
+import { globalUserUpdate } from "../../../hooks/useUserStore";
 
 export default function LoginForm() {
 
@@ -39,6 +38,7 @@ export default function LoginForm() {
         }
 
         if(response.data) {
+            globalUserUpdate(response.data.user);
             navigate('/');
         }
     }

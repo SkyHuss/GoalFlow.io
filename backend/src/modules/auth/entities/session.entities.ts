@@ -31,6 +31,9 @@ export class Session {
   @Column({ nullable: true })
   userAgent?: string;
 
+  @Column({ nullable: true })
+  impersonatedBy?: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -7,6 +7,7 @@ export interface NavigationItem {
     label?: string,
     icon: SvgIconComponent,
     path: string,
+    role: string;
 }
 
 interface Props {

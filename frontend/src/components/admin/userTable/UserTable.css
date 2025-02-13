@@ -1,0 +1,94 @@
+.user-table-container {
+    height: 100%;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-table-container .filters-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.user-table-container .filters-container .label {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.user-table-container .filters-container .label span {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.user-table-container .filters-container .filters {
+    display: flex;
+    gap: 8px;
+}
+
+.user-table-container .user-table-content {
+    width: 100%;
+}
+
+.user-table-container .user-table-content thead {
+    height: 60px;
+    background-color: var(--secondary-300);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.user-table-container .user-table-content thead tr th {
+    max-width: 150px;
+}
+
+.user-table-container .user-table-content thead tr th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.user-table-container .user-table-content thead tr th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.user-table-container .user-table-content tbody {
+    color: var(--text-secondary);
+}
+
+.user-table-container .user-table-content tbody tr td {
+    max-width: 150px;
+    height: 90px;
+    padding: 5px;
+    text-align: center;
+
+}
+
+.user-table-container .user-table-content tbody .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-table-container .user-table-content tbody img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-table-container .user-table-content tbody .no-image {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: solid 1px var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.user-table-container .user-table-content tbody .actions-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}

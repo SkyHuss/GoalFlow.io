@@ -14,6 +14,7 @@ import DatePickerInput from '../../components/generic/form/datePicker/DatePicker
 import FileInput from '../../components/generic/form/fileInput/FileInput';
 import ConfirmDialog from '../../components/generic/confirmDialog/ConfirmDialog';
 import PasswordInput from '../../components/generic/form/password/PasswordInput';
+import Paginator from '../../components/generic/pagination/Paginator';
 
 export default function DesignWorkshop() {
 
@@ -23,6 +24,7 @@ export default function DesignWorkshop() {
         {id: 2, label: 'Completed', count: 265},
     ];
 
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const [selectedTabId, setSelectedTabId] = useState<number>(0);
     const [isDefaultModalDisplay, setIsDefaultModalDisplay] = useState<boolean>(false);
     const [isTopRightModalDisplay, setIsTopRightModalDisplay] = useState<boolean>(false);
@@ -56,7 +58,15 @@ export default function DesignWorkshop() {
     return <div className="design-workshop-container">
         <div className="header">Here is a list of all generic components</div>
         <div className="components">
-        {/* BUTTONS */}
+            {/* Table */}
+            <div className='section'>
+                Table
+                <div className="items">
+                    <Paginator numPages={5} activePage={currentPage} setCurrentPage={setCurrentPage}/>
+                </div>
+                <div>La page courante: {currentPage}</div>
+            </div>
+            {/* BUTTONS */}
             <div className='section'>
                 Dialog
                 <div className="items">

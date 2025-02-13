@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
 import Home from './pages/home/Home';
 import SessionList from './pages/sessionList/SessionList';
 import Analytics from './pages/analytics/Analytics';
@@ -18,6 +18,9 @@ import './App.css';
 import DesignWorkshop from './pages/designWorkshop/DesignWorkshop';
 import Login from './pages/auth/login/Login';
 import SignUp from './pages/auth/signUp/SignUp';
+import AdminPanel from './pages/adminPanel/AdminPanel';
+import { useUserStore } from './hooks/useUserStore';
+import { useEffect, useState } from 'react';
 
 function AppLayout() {
   return (
@@ -36,44 +39,27 @@ function AppLayout() {
   )
 }
 
+function ProtectedRoute() {
+  
+  const {user, loading, fetchCurrentUser} = useUserStore();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function checkUser() {
+      await fetchCurrentUser();
+      setIsLoading(false);
+    }
+    checkUser();
+  }, [fetchCurrentUser]);
+
+  if(isLoading || loading) {
+    return <div>loading ...</div>
+  }
+
+  return user ? <Outlet /> : <Navigate to="/login" replace /> 
+}
+
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <AppLayout />,
-    children: [ // Children are render in the Outlet
-      {
-        path: '/',
-        element: <Home />
-      },
-      //Sidebar links
-      {
-        path: '/session-list',
-        element: <SessionList />
-      },
-      {
-        path: '/focus',
-        element: <FocusMode />
-      },
-      {
-        path: '/analytics',
-        element: <Analytics />
-      },
-      {
-        path: '/history',
-        element: <History />
-      },
-      {
-        path: '/design',
-        element: <DesignWorkshop />
-      },
-      //Profile links
-      {
-        path: '/personal-info',
-        element: <PersonalInfo />
-      }
-      // TODO: rajouter les autres pages de l'app ( session pages, account, settings, ...)
-    ]
-  },
   {
     path: '/login',
     element: <Login />
@@ -81,6 +67,52 @@ const router = createBrowserRouter([
   {
     path: '/sign-up',
     element: <SignUp />
+  },
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/',
+            element: <Home />
+          },
+          //Sidebar links
+          {
+            path: '/session-list',
+            element: <SessionList />
+          },
+          {
+            path: '/focus',
+            element: <FocusMode />
+          },
+          {
+            path: '/analytics',
+            element: <Analytics />
+          },
+          {
+            path: '/history',
+            element: <History />
+          },
+          {
+            path: '/admin',
+            element: <AdminPanel />
+          },
+          {
+            path: '/design',
+            element: <DesignWorkshop />
+          },
+          //Profile links
+          {
+            path: '/personal-info',
+            element: <PersonalInfo />
+          }
+          // TODO: rajouter les autres pages de l'app ( session pages, account, settings, ...)
+        ]
+      }
+    ]
   },
 ])
 

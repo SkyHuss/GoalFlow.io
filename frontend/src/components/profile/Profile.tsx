@@ -1,33 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDropDown, Diversity1, ExitToApp, Payments, Person, Settings } from '@mui/icons-material';
+import { ArrowDropDown, Autorenew, Diversity1, ExitToApp, NoPhotography, Payments, Person, Settings } from '@mui/icons-material';
 import { generateColorFromName } from '../../utils/color';
 import ProfileItem from './profileItem/ProfilItem';
 import './Profile.css'
-import { authClient } from '../../utils/auth-client';
-import { User } from 'better-auth';
 import { signOut } from '../../services/api/authService';
-import { toast } from 'react-toastify';
+import { useUserStore } from '../../hooks/useUserStore';
 
 export default function Profile() {
 
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
+
+    const {user, loading, fetchCurrentUser} = useUserStore();
 
     const generateInitials = (fullname: string): string => {
         const names = fullname.split(' ');
         return names[0][0] + names[1][0]
     }
-
-    const fakeUser: User = {
-        id: 'fakeid',
-        email: 'fakeEmail@gmail.com',
-        name: 'Jean-Michel Fake',
-        emailVerified: false, 
-        createdAt: new Date(),
-        updatedAt: new Date()
-    }
-
-    const [connectedUser, setConnectedUser] = useState<User | null>(fakeUser);
-    const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
 
     const openProfileDropdown = () => {
         setIsProfileOpen(true);
@@ -40,22 +29,6 @@ export default function Profile() {
     }
 
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const session = await authClient.getSession();
-
-                if (session?.data?.user) {
-                    setConnectedUser(session.data.user);
-                }
-            } catch {
-                toast.error("Error : Can't get the user session");
-            }
-        };
-    
-        fetchUser();
-    }, []);
-
-    useEffect(() => {
         document.addEventListener('mousedown', handleDropdownClickOutside);
 
         return () => {
@@ -63,25 +36,34 @@ export default function Profile() {
         };
     }, [])
 
+    useEffect(() => {
+        fetchCurrentUser();
+        
+    }, [fetchCurrentUser]);
+
     return <div className="profile-container" onClick={openProfileDropdown}>
         <div className="avatar">
-
-            {connectedUser && connectedUser.image && 
-                <img src={connectedUser.image} />
-
+            {user && user.image && 
+                <img src={user.image} />
             }
-
-            {connectedUser && !connectedUser.image &&
-                <div className="no-avatar" style={{backgroundColor: generateColorFromName(connectedUser.name)}}>
-                    {generateInitials(connectedUser.name)}
+            {user && !user.image &&
+                <div className="no-avatar" style={{backgroundColor: generateColorFromName(user.name)}}>
+                    {generateInitials(user.name)}
                 </div>
             }
+            {loading && !user && 
+                <NoPhotography />
+            }
         </div>
-        {connectedUser && 
+        {!loading && user && 
             <div className="infos">
-                <div className="fullname">{connectedUser.name.split(' ')[0]} {connectedUser.name.split(' ')[1].toLocaleUpperCase()}</div>
-                <div className="mail">{connectedUser.email}</div>
+                <div className="fullname">{user.name.split(' ')[0]} {user.name.split(' ')[1].toLocaleUpperCase()}</div>
+                <div className="mail">{user.email}</div>
             </div>
+        }
+
+        {loading && 
+            <div className="animate-spin"><Autorenew/></div>
         }
         <ArrowDropDown className='icon'/>
 
