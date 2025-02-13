@@ -22,6 +22,10 @@ import AdminPanel from './pages/adminPanel/AdminPanel';
 import { useUserStore } from './hooks/useUserStore';
 import { useEffect, useState } from 'react';
 
+interface ProtectedRouteProps {
+  requiredRole?: string;
+}
+
 function AppLayout() {
   return (
     <div id='app-container' className='app-container'>
@@ -39,10 +43,9 @@ function AppLayout() {
   )
 }
 
-function ProtectedRoute() {
-  
-  const {user, loading, fetchCurrentUser} = useUserStore();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+function ProtectedRoute( {requiredRole}: ProtectedRouteProps) {
+  const { user, loading, fetchCurrentUser } = useUserStore();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function checkUser() {
@@ -52,11 +55,15 @@ function ProtectedRoute() {
     checkUser();
   }, [fetchCurrentUser]);
 
-  if(isLoading || loading) {
-    return <div>loading ...</div>
+  if (isLoading || loading) {
+    return <div>Loading ...</div>;
   }
 
-  return user ? <Outlet /> : <Navigate to="/login" replace /> 
+  if (!user || (requiredRole && user.role !== requiredRole)) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 }
 
 const router = createBrowserRouter([
@@ -73,7 +80,16 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        element: <ProtectedRoute />,
+        element: <ProtectedRoute requiredRole='admin'/>, 
+        children: [
+          {
+            path: '/admin',
+            element: <AdminPanel />
+          },
+        ]
+      },
+      {
+        element: <ProtectedRoute/>,
         children: [
           {
             path: '/',
@@ -95,10 +111,6 @@ const router = createBrowserRouter([
           {
             path: '/history',
             element: <History />
-          },
-          {
-            path: '/admin',
-            element: <AdminPanel />
           },
           {
             path: '/design',
