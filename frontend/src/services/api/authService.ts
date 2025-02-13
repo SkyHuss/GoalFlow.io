@@ -25,7 +25,7 @@ export const logIn = async (credentials: LoginFormData) => {
     })
 }
 
-//Create user account
+//Create and signUp a User
 export const signUp = async (credentials: SignUpFormData) => {
     return authClient.signUp.email({
         name: credentials.firstname + ' ' + credentials.lastname,

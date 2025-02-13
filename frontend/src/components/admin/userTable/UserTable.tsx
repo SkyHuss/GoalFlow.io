@@ -1,20 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
-import { getAllUsers, removeUser } from '../../../services/api/adminService'
+import { createUser, getAllUsers, removeUser } from '../../../services/api/adminService'
 import { toast } from 'react-toastify'
 import ActionButton from '../../generic/actionButton/ActionButton'
-import { Add, Delete, Edit, NoPhotography, Tune } from '@mui/icons-material'
+import { Add, Check, Close, Delete, Edit, NoPhotography, Tune } from '@mui/icons-material'
 import { truncateString } from '../../../utils/strings'
 import { ButtonType } from '../../../constants/buttons/buttonsTypes'
 import ConfirmDialog from '../../generic/confirmDialog/ConfirmDialog'
 import { AppUser } from '../../../hooks/useUserStore'
 import './UserTable.css'
 import Paginator from '../../generic/pagination/Paginator'
+import Modal from '../../generic/modal/Modal'
+import SignUpForm from '../../auth/signUp/SignUpForm'
+import { SignUpFormData } from '../../../services/api/authService'
+import { defaultUserCredentials } from '../../../constants/initialisation/initialisation'
+import { UserWithRole } from 'better-auth/plugins'
 
 export default function UserTable() {
 
     const [users, setUsers] = useState<AppUser[]>([]);
+    const [newUserCredentials, setNewUserCredentials] = useState<SignUpFormData>(defaultUserCredentials)
     const [focusedUser, setFocusedUser] = useState<AppUser | null>(null)
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
+    const [isCreateUserFormOpen, setIsCreateUserFormOpen] = useState<boolean>(false); 
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [itemsPerPage, setItemsPerPage] = useState<number>(5);
     const ROW_HEIGHT = 90;
@@ -24,9 +31,21 @@ export default function UserTable() {
         console.log("Todo: implement filtering")
     }
 
-    const handleUserCreate = () => {
-        console.log("Todo: create a user", )
-    }
+    const handleUserCreate = async () => {
+
+        const response = await createUser(newUserCredentials);
+
+        if(response.error) {
+            toast.error(`Error: `+ response.error.message);
+            return;        
+        }
+
+        if(response.data) {
+            toast.success(`User: ${response.data.user.email} created with success`);
+            setUsers((prevUsers) => [...prevUsers, response.data.user]);
+            setIsCreateUserFormOpen(false)
+        }
+    };
 
     const handleDeleteUser = (user: AppUser) => {
         setFocusedUser(user);
@@ -65,7 +84,7 @@ export default function UserTable() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const appUsers: AppUser[] = await getAllUsers(); 
+                const appUsers: UserWithRole[] | undefined = await getAllUsers(); 
                 if (appUsers && appUsers.length > 0) {
                     setUsers(appUsers);
                 }
@@ -79,14 +98,14 @@ export default function UserTable() {
     useEffect(() => {
         const updateItemsPerPage = () => {
             if (tableContainerRef.current) {
-                const containerHeight = tableContainerRef.current.clientHeight - 175; //105px for the thead style and header style
+                const containerHeight = tableContainerRef.current.clientHeight - 175; //175px for the thead style and header style
                 const calculatedItems = Math.floor(containerHeight / ROW_HEIGHT);
                 setItemsPerPage(calculatedItems > 0 ? calculatedItems : 1); 
             }
         };
 
-        updateItemsPerPage(); // Appeler une première fois
-        window.addEventListener("resize", updateItemsPerPage); // Mise à jour lors du resize
+        updateItemsPerPage();
+        window.addEventListener("resize", updateItemsPerPage);
 
         return () => window.removeEventListener("resize", updateItemsPerPage);
     }, []);
@@ -100,7 +119,7 @@ export default function UserTable() {
             <div className="filters">
                 {/* TODO: dev searchbar */}
                 <ActionButton label='Filters' icon={Tune} onClick={handleFiltering} outlined/>
-                <ActionButton label='Add user' icon={Add}  onClick={handleUserCreate} type={ButtonType.Success}/>
+                <ActionButton label='Add user' icon={Add}  onClick={() => setIsCreateUserFormOpen(true)} type={ButtonType.Success}/>
             </div>
         </div>
         {users.length > 0 ? (
@@ -137,7 +156,7 @@ export default function UserTable() {
                                 <td>{user.name}</td>
                                 <td>{user.role ? user.role : null}</td>
                                 <td>{user.email}</td>
-                                <td>{user.emailVerified ? '✅' : '❌'}</td>
+                                <td>{user.emailVerified ? <Check className='text-success-400' /> : <Close className='text-danger-400'/>}</td>
                                 <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                                 <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
                                 <td>
@@ -157,6 +176,7 @@ export default function UserTable() {
             <Paginator activePage={currentPage} numPages={pagesNumber} setCurrentPage={setCurrentPage}/>
         }
 
+        {/* Modals */}
         {isConfirmDialogOpen && 
             <ConfirmDialog 
                 messageTitle='Are you sure ?'
@@ -165,5 +185,18 @@ export default function UserTable() {
                 onConfirm={() => deleteUser()}
             />
         }
+
+        {isCreateUserFormOpen && 
+            <Modal title='Add a user' closeModal={() => setIsCreateUserFormOpen(false)}>
+                <SignUpForm 
+                    handleSignUp={handleUserCreate} 
+                    credentials={newUserCredentials} 
+                    setCredentials={setNewUserCredentials}
+                    displayImage={false}
+                />
+            </Modal>
+        }
+
+
     </div>
 }

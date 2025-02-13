@@ -87,7 +87,6 @@
     color: var(--text-secondary);
 }
 
-
 .user-table-container .user-table-content tbody .actions-container {
     display: flex;
     justify-content: center;
