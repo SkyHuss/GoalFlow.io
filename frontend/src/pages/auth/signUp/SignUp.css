@@ -108,7 +108,7 @@
 
     .sign-up-container .sign-up-content {
         position: relative;
-        background-image: url(assets/logo/bgLogin.jpg);
+        background-image: url(/assets/background/loginBg.jpg);
         border-radius: 8px;
         width: 100%;
     }
@@ -120,6 +120,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 8px;
     }
 
     .sign-up-container .sign-up-content .mobile.app-title {

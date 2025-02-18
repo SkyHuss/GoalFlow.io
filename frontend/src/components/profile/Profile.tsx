@@ -5,6 +5,7 @@ import ProfileItem from './profileItem/ProfilItem';
 import './Profile.css'
 import { signOut } from '../../services/api/authService';
 import { globalUserUpdate, useUserStore } from '../../hooks/useUserStore';
+import { generateInitials } from '../../utils/strings';
 
 export default function Profile() {
 
@@ -12,10 +13,7 @@ export default function Profile() {
     const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
     const {user, loading, fetchCurrentUser} = useUserStore();
 
-    const generateInitials = (fullname: string): string => {
-        const names = fullname.split(' ');
-        return names[0][0] + names[1][0]
-    }
+
 
     const openProfileDropdown = () => {
         setIsProfileOpen(true);
@@ -42,7 +40,6 @@ export default function Profile() {
 
     useEffect(() => {
         fetchCurrentUser();
-        
     }, [fetchCurrentUser]);
 
     return <div className="profile-container" onClick={openProfileDropdown}>
