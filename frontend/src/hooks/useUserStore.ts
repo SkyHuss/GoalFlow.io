@@ -32,6 +32,6 @@ export const useUserStore = create<UserStore>()((set) => ({
     }
 }))
 
-export const globalUserUpdate = (nextUser: AppUser) => {
+export const globalUserUpdate = (nextUser: AppUser | null) => {
     useUserStore.setState({user: nextUser})
 }

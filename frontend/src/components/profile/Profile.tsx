@@ -4,13 +4,12 @@ import { generateColorFromName } from '../../utils/color';
 import ProfileItem from './profileItem/ProfilItem';
 import './Profile.css'
 import { signOut } from '../../services/api/authService';
-import { useUserStore } from '../../hooks/useUserStore';
+import { globalUserUpdate, useUserStore } from '../../hooks/useUserStore';
 
 export default function Profile() {
 
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [isProfilOpen, setIsProfileOpen] = useState<boolean>(false)
-
     const {user, loading, fetchCurrentUser} = useUserStore();
 
     const generateInitials = (fullname: string): string => {
@@ -26,6 +25,11 @@ export default function Profile() {
         if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
             setIsProfileOpen(false)
         }
+    }
+
+    const handleSignOut = async () => {
+        globalUserUpdate(null);
+        await signOut();
     }
 
     useEffect(() => {
@@ -74,7 +78,7 @@ export default function Profile() {
                 <ProfileItem icon={Diversity1} label='Contacts' link='/'/>
                 <ProfileItem icon={Payments} label='Subscription' link='/'/>
                 <ProfileItem icon={Settings} label='Settings' link='/'/>
-                <ProfileItem icon={ExitToApp} label='Disconnect' link='/login' onClick={() => signOut()}/>
+                <ProfileItem icon={ExitToApp} label='Disconnect' link='/auth/login' onClick={handleSignOut}/>
             </div>
         }
     </div>

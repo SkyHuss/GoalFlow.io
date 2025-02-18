@@ -7,7 +7,7 @@
 }
 
 .sign-up-container .sign-up-bg-image {
-    background-image: url(assets/logo/bgLogin.jpg);
+    background-image: url(/assets/background/loginBg.jpg);
     width: 66%;
     border-radius: 8px;
 }

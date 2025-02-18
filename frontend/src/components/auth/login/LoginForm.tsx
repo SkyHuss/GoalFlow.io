@@ -23,7 +23,7 @@ export default function LoginForm() {
     }
 
     const navigateToSignUp = () => {
-        navigate('/sign-up')
+        navigate('/auth/sign-up')
     }
 
     const handleLogIn = async () => {
@@ -39,7 +39,7 @@ export default function LoginForm() {
 
         if(response.data) {
             globalUserUpdate(response.data.user);
-            navigate('/');
+            navigate('/session-list');
         }
     }
 
