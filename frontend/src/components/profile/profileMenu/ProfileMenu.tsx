@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDropDown, Autorenew, Diversity1, ExitToApp, NoPhotography, Payments, Person, Settings } from '@mui/icons-material';
-import { generateColorFromName } from '../../utils/color';
-import ProfileItem from './profileItem/ProfilItem';
-import './Profile.css'
-import { signOut } from '../../services/api/authService';
-import { globalUserUpdate, useUserStore } from '../../hooks/useUserStore';
-import { generateInitials } from '../../utils/strings';
+import { generateColorFromName } from '../../../utils/color';
+import ProfileItem from '../profileItem/ProfilItem';
+import './ProfileMenu.css'
+import { signOut } from '../../../services/api/authService';
+import { globalUserUpdate, useUserStore } from '../../../hooks/useUserStore';
+import { generateInitials } from '../../../utils/strings';
 
 export default function Profile() {
 

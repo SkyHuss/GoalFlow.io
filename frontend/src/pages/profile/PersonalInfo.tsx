@@ -1,6 +1,7 @@
-import SubscriptionDetails from '../../../components/subscription/details/SubscriptionDetails';
-import { useUserStore } from '../../../hooks/useUserStore'
-import UserBanner from '../userBanner/UserBanner';
+import SubscriptionDetails from '../../components/subscription/details/SubscriptionDetails';
+import { useUserStore } from '../../hooks/useUserStore'
+import UserBanner from '../../components/profile/userBanner/UserBanner';
+import UserForm from '../../components/profile/userForm/UserForm';
 import './PersonalInfo.css'
 
 export default function PersonalInfo() {
@@ -14,6 +15,7 @@ export default function PersonalInfo() {
                 <div className="header">
                     Details
                 </div>
+                <UserForm user={user!}/>
             </div>
             <div className="stats-container card">
                 <div className="header">

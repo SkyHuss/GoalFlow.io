@@ -22,13 +22,13 @@
 
 .action-button.outlined {
     background-color: transparent;
-    border: solid 1px var(--primary-400);
-    color: var(--primary-400);
+    border: solid 1px var(--primary-300);
+    color: var(--primary-300);
 }
 
 .action-button.outlined:hover {
-    border-color: var(--primary-300);
-    color: var(--primary-300);
+    border-color: var(--primary-200);
+    color: var(--primary-200);
 }
 
 

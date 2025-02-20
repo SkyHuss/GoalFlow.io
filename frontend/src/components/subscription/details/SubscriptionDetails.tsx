@@ -33,7 +33,7 @@ export default function SubscriptionDetails() {
             <div className="sub-header">Missing features: </div>
             <div className="list">
                 {fakeMissingFeature.map(item => (
-                    <div className="item"><Close />{item}</div>
+                    <div className="item" key={Math.random()}><Close />{item}</div>
                 ))}
             </div>
         </div>

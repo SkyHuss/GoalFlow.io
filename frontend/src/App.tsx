@@ -9,7 +9,7 @@ import SessionList from './pages/sessionList/SessionList';
 import Analytics from './pages/analytics/Analytics';
 import History from './pages/history/History';
 import FocusMode from './pages/focusMode/FocusMode';
-import PersonalInfo from './pages/profile/personalInfo/PersonalInfo';
+import PersonalInfo from './pages/profile/PersonalInfo';
 import MobileSidebar from './components/sidebar/mobileSidebar/MobileSidebar';
 import BottomNavBar from './components/navbar/bottomNavBar/BottomNavBar';
 import './constants/style/color.css';

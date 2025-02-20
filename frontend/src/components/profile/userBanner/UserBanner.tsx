@@ -1,5 +1,5 @@
 import { PhotoCamera, Event, GraphicEq, Edit } from "@mui/icons-material";
-import ActionButton from "../../../components/generic/actionButton/ActionButton";
+import ActionButton from "../../generic/actionButton/ActionButton";
 import { AppUser } from "../../../hooks/useUserStore";
 import { displayDate } from "../../../utils/date";
 import './UserBanner.css'
