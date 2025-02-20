@@ -66,6 +66,6 @@ export default function UserBanner({user}: Props) {
                     <img src="/assets/achivements/hero.png" alt=""/>
                 </div>               
             </div>
-        </div>
+        </div>     
     </div>
 }

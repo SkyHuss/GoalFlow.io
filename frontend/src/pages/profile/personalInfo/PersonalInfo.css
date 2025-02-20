@@ -1,3 +1,24 @@
 .personal-info-container {
     padding: 20px;
+    height: 100%;
+    overflow: auto;
+}
+
+.personal-info-container .content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    gap: 30px;
+}
+
+.personal-info-container .content .card {
+    background-color: var(--secondary-300);
+    flex: 1;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.personal-info-container .content .card .header {
+    font-size: var(--h3);
+    font-weight: bold;
 }
