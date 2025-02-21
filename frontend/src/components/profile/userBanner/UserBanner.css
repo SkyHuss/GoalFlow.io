@@ -112,3 +112,16 @@
     height: 40px;
     width: 40px;
 }
+
+.profile-picture-modal-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-picture-modal-container .modal-actions {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}

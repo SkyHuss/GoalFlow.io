@@ -20,10 +20,11 @@ export default function SignUpForm({credentials, displayImage = true, setCredent
     }
 
     const handleProfilePicture = async (file: File | null) => {
+        let image = null;
         if(file){
-            const resizedImage = await resizeAndCropImage(file, 300, 300);
-            setCredentials((prev: SignUpFormData) => ({...prev, profilePicture: resizedImage}))
+            image = await resizeAndCropImage(file, 300, 300);
         }
+        setCredentials((prev: SignUpFormData) => ({...prev, profilePicture: image}))
     }
 
     return <div className="sign-up-form-container">

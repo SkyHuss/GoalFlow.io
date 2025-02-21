@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../../generic/form/textInput/TextInput.tsx';
-import { AppUser } from '../../../hooks/useUserStore.ts';
+import { AppUser, useUserStore } from '../../../hooks/useUserStore.ts';
 import './UserForm.css';
 import ActionButton from '../../generic/actionButton/ActionButton.tsx';
 import { ButtonType } from '../../../constants/buttons/buttonsTypes.ts';
 import { Check, Close, Edit } from '@mui/icons-material';
+import { updateUserName } from '../../../services/api/userService.ts';
 
 interface Props {
     user: AppUser
@@ -22,6 +23,8 @@ export default function UserForm({user}: Props) {
         lastname: ''
     })
 
+    const {fetchCurrentUser} = useUserStore();
+
     const handleInputChange = (key: string, value: string) => {
         setUserFormData((prev) => ({...prev, [key]: value})) ;
     }
@@ -34,8 +37,11 @@ export default function UserForm({user}: Props) {
         console.log("todo: implement email change")
     }
 
-    const handleFormSubmit = () => {
-        console.log("submit form: ", userFormData)
+    const handleFormSubmit = async () => {
+        const firstname = userFormData.firstname !== '' ? userFormData.firstname : user.name.split(' ')[0];
+        const lastname = userFormData.lastname !== '' ? userFormData.lastname : user.name.split(' ')[1];
+        await updateUserName(firstname + ' ' + lastname);
+        await fetchCurrentUser();
     }
 
     const handleFormReset = () => {

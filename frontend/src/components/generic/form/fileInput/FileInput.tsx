@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import './FileInput.css'
 import { Check, CloudUpload, NoPhotography} from '@mui/icons-material';
 
@@ -7,14 +7,15 @@ interface Props {
     label: string;
     subLabel?: string;
     isRequired: boolean;
-    file: string | File | null;
+    file: string | File | null | undefined;
     setFile: (file: File | null) => void;
 }
 
 export default function FileInput({placeholder, label, subLabel, isRequired, file, setFile}: Props) {
     
     const [isDragOver, setIsDragOver] = useState<boolean>(false);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [imgSrc, setImgSrc] = useState<string | null | undefined>(null);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newfile = event.target.files?.[0];
@@ -42,8 +43,11 @@ export default function FileInput({placeholder, label, subLabel, isRequired, fil
         if (selectedFile) {
             return URL.createObjectURL(selectedFile);
         }
+        if (typeof file === 'string' && /^data:image\/[a-zA-Z]+;base64,/.test(file)) {
+            return file; //base64 image
+        }
         if (typeof file === 'string') {
-            return import.meta.env.VITE_BASE_URL + file;
+            return import.meta.env.VITE_BASE_URL + file; //image link
         }
         if (file instanceof File) {
             return import.meta.env.VITE_BASE_URL + file;
@@ -60,6 +64,10 @@ export default function FileInput({placeholder, label, subLabel, isRequired, fil
         document.getElementById('hidden-file-input')?.click();
     }
 
+    useEffect(() => {
+        setImgSrc(getImageSrc());
+    }, [file, selectedFile])
+
     return <div className="file-input-container form-input">
         <div className="label">
             {label} {isRequired && <div className="is-required">*</div>}
@@ -67,8 +75,8 @@ export default function FileInput({placeholder, label, subLabel, isRequired, fil
         {subLabel && <div className='sub-label'>{subLabel}</div>}
         <div className="input-file">
             <div className="preview" onClick={discardImage}>
-                {getImageSrc() ? (
-                    <img src={getImageSrc()} alt="Preview" />
+                {imgSrc ? (
+                    <img src={imgSrc} alt="Preview" />
                 ) : (
                     <div className="no-image">
                         <NoPhotography />

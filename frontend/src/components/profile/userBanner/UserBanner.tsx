@@ -1,10 +1,16 @@
-import { PhotoCamera, Event, GraphicEq, Edit } from "@mui/icons-material";
+import { PhotoCamera, Event, GraphicEq, Edit, Check, Close } from "@mui/icons-material";
 import ActionButton from "../../generic/actionButton/ActionButton";
-import { AppUser } from "../../../hooks/useUserStore";
+import { AppUser, useUserStore } from "../../../hooks/useUserStore";
 import { displayDate } from "../../../utils/date";
 import './UserBanner.css'
 import { generateColorFromName } from "../../../utils/color";
 import { generateInitials } from "../../../utils/strings";
+import { useState } from "react";
+import Modal from "../../generic/modal/Modal";
+import FileInput from "../../generic/form/fileInput/FileInput";
+import { resizeAndCropImage } from "../../../utils/images";
+import { updateProfilPicture } from "../../../services/api/userService";
+import { ButtonType } from "../../../constants/buttons/buttonsTypes";
 
 interface Props {
     user: AppUser;
@@ -12,12 +18,31 @@ interface Props {
 
 export default function UserBanner({user}: Props) {
 
+    const [isUpdateImageOpen, setIsUpdateImageOpen] = useState<boolean>(false);
+    const [userImage, setUserImage] = useState<string | null | undefined>(user.image)
+
+    const {fetchCurrentUser} = useUserStore();
+
     const handleBgUpdate = () => {
         console.log("updating background for: ", user.name)
     }
 
-    const handleProfilePictureUpdate = () => {
-        console.log("todo: implement profile picture update")
+    const handleProfilePicture = async (file: File | null) => {
+        let image = null;
+        if(file){
+            image = await resizeAndCropImage(file, 300, 300);
+        } 
+        setUserImage(image);
+    }
+
+    const uploadProfilePicture = async () => {
+        await updateProfilPicture(userImage);
+        await fetchCurrentUser();
+    }
+
+    const closeProfilPictureModal = () => {
+        setIsUpdateImageOpen(false);
+        setUserImage(user.image);
     }
 
     return <div className="user-banner-container">
@@ -34,7 +59,7 @@ export default function UserBanner({user}: Props) {
                     {generateInitials(user.name)}
                 </div>}
 
-            <div className="update-profile-picture-button" onClick={handleProfilePictureUpdate}>
+            <div className="update-profile-picture-button" onClick={() => setIsUpdateImageOpen(true)}>
                 <Edit />
             </div>
 
@@ -67,5 +92,34 @@ export default function UserBanner({user}: Props) {
                 </div>               
             </div>
         </div>     
+
+        
+        {isUpdateImageOpen &&
+            <Modal closeModal={closeProfilPictureModal} title='Update your profile picture'>
+                <div className="profile-picture-modal-container">
+                    <FileInput 
+                        label="Select or drag and drop a new profile picture"
+                        isRequired={true}
+                        file={userImage}
+                        setFile={(file: File | null) => handleProfilePicture(file)}
+                        placeholder="No image..."
+                    />
+                    <div className="modal-actions">
+                        <ActionButton 
+                            label="Upload" 
+                            icon={Check}
+                            type={userImage !== user.image ? ButtonType.Primary : ButtonType.Disabled}
+                            onClick={uploadProfilePicture}
+                        />
+                        <ActionButton 
+                            label="Cancel"
+                            icon={Close}
+                            outlined
+                            onClick={closeProfilPictureModal}
+                        />
+                    </div>
+                </div>
+            </Modal>
+        }
     </div>
 }
