@@ -21,6 +21,7 @@ export default function PersonalInfo() {
                 <div className="header">
                     Statistics
                 </div>
+                Coming really really soon...  
             </div>
             <div className="subscription-container card">
                 <div className="header">

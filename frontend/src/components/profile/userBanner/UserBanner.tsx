@@ -71,7 +71,7 @@ export default function UserBanner({user}: Props) {
                     <Event /><div className="label">Member since {displayDate(user.createdAt)}</div>
                 </div>
                 <div className="item">
-                    <GraphicEq /><div className="label">Last activity {displayDate(user.createdAt)}</div>
+                    <GraphicEq /><div className="label">Last activity {displayDate(user.updatedAt)}</div>
                 </div>
             </div>
             <div className="achievements">
