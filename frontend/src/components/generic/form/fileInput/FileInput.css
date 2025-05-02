@@ -57,7 +57,7 @@
 .file-input-container .input-file .custom-input-file {
     background-color: var(--secondary-300);
     height: 92px;
-    width: 100%;
+    width: calc(100% - 60px);
     border-radius: 8px;
     border: solid 1px var(--text-secondary);
     display: flex;

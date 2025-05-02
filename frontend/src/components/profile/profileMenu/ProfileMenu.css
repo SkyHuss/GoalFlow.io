@@ -33,6 +33,7 @@
     font-size: var(--h4);
     font-weight: bolder;
     user-select: none;
+    color: var(--text-primary)
 }
 
 .profile-container .avatar img {

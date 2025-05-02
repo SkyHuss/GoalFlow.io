@@ -11,7 +11,7 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const navigateToSignIn = () => {
-        navigate('/login')
+        navigate('/auth/login')
     }
 
     const [credentials, setCredentials] = useState<SignUpFormData>(defaultUserCredentials);
@@ -27,7 +27,7 @@ export default function SignUp() {
 
         if(response.data) {
             toast.success(`User: ${credentials.email} created with success`)
-            navigate('/');
+            navigate('/session-list');
         }
 
     };

@@ -9,7 +9,7 @@ import SessionList from './pages/sessionList/SessionList';
 import Analytics from './pages/analytics/Analytics';
 import History from './pages/history/History';
 import FocusMode from './pages/focusMode/FocusMode';
-import PersonalInfo from './pages/profile/personalInfo/PersonalInfo';
+import PersonalInfo from './pages/profile/PersonalInfo';
 import MobileSidebar from './components/sidebar/mobileSidebar/MobileSidebar';
 import BottomNavBar from './components/navbar/bottomNavBar/BottomNavBar';
 import './constants/style/color.css';
@@ -59,8 +59,35 @@ function ProtectedRoute( {requiredRole}: ProtectedRouteProps) {
     return <div>Loading ...</div>;
   }
 
-  if (!user || (requiredRole && user.role !== requiredRole)) {
+  if(!user) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  if (requiredRole && user.role !== requiredRole) {
     return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+}
+
+function NotConnectedRoute() {
+  const { user, loading, fetchCurrentUser } = useUserStore();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function checkUser() {
+      await fetchCurrentUser();
+      setIsLoading(false);
+    }
+    checkUser();
+  }, [fetchCurrentUser]);
+
+  if (isLoading || loading) {
+    return <div>Loading ...</div>;
+  }
+
+  if (user) {
+    return <Navigate to="/session-list" replace />;
   }
 
   return <Outlet />;
@@ -68,12 +95,18 @@ function ProtectedRoute( {requiredRole}: ProtectedRouteProps) {
 
 const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <Login />
-  },
-  {
-    path: '/sign-up',
-    element: <SignUp />
+    path: '/auth',
+    element: <NotConnectedRoute />,
+    children: [
+      {
+        path: '/auth/login',
+        element: <Login />
+      },
+      {
+        path: '/auth/sign-up',
+        element: <SignUp />
+      },
+    ]
   },
   {
     path: '/',

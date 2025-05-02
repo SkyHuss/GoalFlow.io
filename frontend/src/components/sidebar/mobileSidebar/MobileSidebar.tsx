@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './MobileSidebar.css'
 import { ExpandCircleDownOutlined } from '@mui/icons-material';
-import Profile from '../../profile/Profile';
+import Profile from '../../profile/profileMenu/ProfileMenu';
 
 export default function MobileSidebar() {
 

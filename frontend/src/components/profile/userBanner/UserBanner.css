@@ -1,0 +1,127 @@
+.user-banner-container {
+    position: relative;
+    background-color: var(--secondary-300);
+    border-radius: 8px;
+}
+
+.user-banner-container .user-background {
+    position: relative;
+}
+
+.user-banner-container .user-background img {
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.user-banner-container .user-background .update-bg-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.user-banner-container .profile-picture-container {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    border: solid 1px var(--text-primary);
+    border-radius: 50%;
+}
+
+.user-banner-container .profile-picture-container img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.user-banner-container .profile-picture-container .no-avatar {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--h2);
+    font-weight: bold;
+}
+
+.user-banner-container .profile-picture-container .update-profile-picture-button {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: var(--primary-400);
+    border-radius: 50%;
+    border: solid 1px var(--text-primary);
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-banner-container .profile-picture-container .update-profile-picture-button:hover {
+    cursor: pointer;
+    background-color: var(--primary-300);
+}
+
+.user-banner-container .profile-picture-container .update-profile-picture-button svg {
+    font-size: var(--p);
+}
+
+.user-banner-container .user-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-top: 70px;
+    padding-bottom: 10px;
+}
+
+.user-banner-container .user-infos .name {
+    font-size: var(--h4);
+    font-weight: bold;
+}
+
+.user-banner-container .user-infos .dates {
+    display: flex;
+    gap: 20px;
+    color: var(--text-secondary);
+
+}
+
+.user-banner-container .user-infos .dates .item {
+    display: flex;
+    gap: 8px;
+
+}
+
+.user-banner-container .user-infos .achievements {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: var(--secondary-200);
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.user-banner-container .user-infos .achievements .achievement-item img{
+    height: 40px;
+    width: 40px;
+}
+
+.profile-picture-modal-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-picture-modal-container .modal-actions {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}

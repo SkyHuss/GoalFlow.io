@@ -1,7 +1,7 @@
 import { NotificationsOutlined } from '@mui/icons-material'
 import NavButton from '../generic/navButton/NavButton'
 import './Navbar.css'
-import Profile from '../profile/Profile'
+import Profile from '../profile/profileMenu/ProfileMenu'
 
 export default function Navbar() {
 
