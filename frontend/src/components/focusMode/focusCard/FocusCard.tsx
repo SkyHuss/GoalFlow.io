@@ -1,6 +1,7 @@
 import { HelpOutlined } from "@mui/icons-material";
 import { FocusCardProps } from "../../../constants/focusMode/focusMenu";
 import { Tooltip } from 'react-tooltip';
+import { useNavigate } from "react-router-dom";
 
 import './FocusCard.css'
 
@@ -9,7 +10,14 @@ export interface Props {
 }
 
 export default function FocusCard({ card }: Props) {
-    return <div className="focus-card-container">
+
+    const navigate = useNavigate();
+
+    const handleFocusMode = () => {
+        navigate(card.path);
+    }
+
+    return <div className="focus-card-container" onClick={handleFocusMode}>
         <div className="hint">
             <HelpOutlined className="hint-icon" data-tooltip-id={card.title}/>
             <Tooltip id={card.title} place="top">

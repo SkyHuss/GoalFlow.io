@@ -9,6 +9,7 @@ export interface FocusCardProps {
         title: string;
         hint: string;
         effect: Effect;
+        path: string;
 }
 
 export const focusMenu: FocusCardProps[] = [
@@ -17,11 +18,13 @@ export const focusMenu: FocusCardProps[] = [
         title: 'Pomodoro',
         hint: 'Le Pomodoro est une méthode de gestion du temps basée sur des sessions de 25 minutes de travail, suivies de pauses courtes, pour améliorer la concentration et réduire la procrastination.',
         effect: Effect.Bounce,
+        path: '/focus/pomodoro',
     },
     {
         image: '/assets/focus/timer.png',
         title: 'Timer',
         hint: 'Definit un timer pour ta session de travail. Tu peux choisir la durée de la session et le temps de pause.',
         effect: Effect.Shake,
+        path: '/focus/timer',
     },
 ];
