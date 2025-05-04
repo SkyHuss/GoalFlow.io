@@ -1,16 +1,20 @@
 import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
+import { StopCircle } from '@mui/icons-material';
 import Clock from '../clock/Clock';
 import './Pomodoro.css';
 import ActionButton from '../../generic/actionButton/ActionButton';
 import { ButtonType } from '../../../constants/buttons/buttonsTypes';
-import { StopCircle } from '@mui/icons-material';
+import StateCarrousel from './stateCaroussel/StateCarrousel';
 
 export default function Pomodoro() {
     const [isSessionRunning, setIsSessionRunning] = useState(false);
     const [elapsedTime, setElapsedTime] = useState({ minutes: 0, seconds: 0 });
     const [startTime, setStartTime] = useState<DateTime | null>(null); // A récupérer depuis les paramètres.
     const [sessionsCount, setSessionsCount] = useState(1);
+
+
+    //TODO: verifier si il y a une session active en back
 
     useEffect(() => {
         if(isSessionRunning && startTime) {
@@ -34,11 +38,13 @@ export default function Pomodoro() {
     }, [startTime, isSessionRunning]);
 
     const startSession = () => {
+        //TODO: lancer une requete back pour creer la session
         setIsSessionRunning(true);
         setStartTime(DateTime.now());
     };
 
     const stopSession = () => {
+        //TODO: lancer une requete back pour arreter la session
         setIsSessionRunning(false);
         setStartTime(null);
         setElapsedTime({ minutes: 0, seconds: 0 });
@@ -61,7 +67,10 @@ export default function Pomodoro() {
         <div className="pomodoro-container">
             {isSessionRunning && 
                 <>
-                    <button onClick={add5Minutes}>+5</button><button onClick={addMinute}>+1</button>
+                    <div>
+                        <button onClick={add5Minutes}>+5</button>
+                        <button onClick={addMinute}>+1</button>
+                    </div>
                     <Clock elapsedTime={elapsedTime} sessionsCount={sessionsCount} />
                     <ActionButton 
                         label='Stop session' 
@@ -69,6 +78,8 @@ export default function Pomodoro() {
                         icon={StopCircle}
                         onClick={stopSession}
                     />
+
+                    <StateCarrousel />
                 </>
             }
             {!isSessionRunning &&
