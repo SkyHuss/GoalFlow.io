@@ -10,11 +10,13 @@ import StateCarrousel from './stateCaroussel/StateCarrousel';
 export default function Pomodoro() {
     const [isSessionRunning, setIsSessionRunning] = useState(false);
     const [elapsedTime, setElapsedTime] = useState({ minutes: 0, seconds: 0 });
-    const [startTime, setStartTime] = useState<DateTime | null>(null); // A récupérer depuis les paramètres.
+    const [startTime, setStartTime] = useState<DateTime | null>(null);
     const [sessionsCount, setSessionsCount] = useState(1);
-
-
-    //TODO: verifier si il y a une session active en back
+    const [isBreak, setIsBreak] = useState(false);
+    
+    // Durées en minutes pour le travail et la pause
+    const WORK_DURATION = 25;
+    const BREAK_DURATION = 5;
 
     useEffect(() => {
         if(isSessionRunning && startTime) {
@@ -22,25 +24,47 @@ export default function Pomodoro() {
                 const now = DateTime.now();
                 const diff = now.diff(startTime, ['minutes', 'seconds']);
                 const totalMinutes = Math.floor(diff.as('minutes'));
-    
-                // Calculer les minutes et secondes dans la session actuelle
-                const currentMinutes = totalMinutes % 30;
-                const currentSeconds = Math.floor(diff.seconds) % 60;
-    
-                // Mettre à jour l'état
-                setElapsedTime({ minutes: currentMinutes, seconds: currentSeconds });
-                setSessionsCount(Math.floor(totalMinutes / 30) + 1);
+                
+                // Calculer les cycles complets (travail + pause)
+                const cycleLength = WORK_DURATION + BREAK_DURATION;
+                const completeCycles = Math.floor(totalMinutes / cycleLength);
+                
+                // Calculer le temps restant dans le cycle actuel
+                const minutesInCurrentCycle = totalMinutes % cycleLength;
+                
+                // Déterminer si nous sommes en pause ou en travail
+                const currentIsBreak = minutesInCurrentCycle >= WORK_DURATION;
+                setIsBreak(currentIsBreak);
+                
+                // Calculer les minutes et secondes dans la phase actuelle
+                let currentPhaseMinutes;
+                if (currentIsBreak) {
+                    // Pendant la pause
+                    currentPhaseMinutes = minutesInCurrentCycle - WORK_DURATION;
+                } else {
+                    // Pendant le travail
+                    currentPhaseMinutes = minutesInCurrentCycle;
+                }
+                
+                const currentPhaseSeconds = Math.floor(diff.seconds) % 60;
+                
+                setElapsedTime({
+                    minutes: currentPhaseMinutes,
+                    seconds: currentPhaseSeconds
+                });
+                
+                setSessionsCount(completeCycles + 1);
             }, 1000);
-    
+            
             return () => clearInterval(interval);
         }
-
     }, [startTime, isSessionRunning]);
 
     const startSession = () => {
         //TODO: lancer une requete back pour creer la session
         setIsSessionRunning(true);
         setStartTime(DateTime.now());
+        setIsBreak(false);
     };
 
     const stopSession = () => {
@@ -49,6 +73,7 @@ export default function Pomodoro() {
         setStartTime(null);
         setElapsedTime({ minutes: 0, seconds: 0 });
         setSessionsCount(1);
+        setIsBreak(false);
     };
 
     //Supprimer cette fonction
@@ -71,15 +96,24 @@ export default function Pomodoro() {
                         <button onClick={add5Minutes}>+5</button>
                         <button onClick={addMinute}>+1</button>
                     </div>
-                    <Clock elapsedTime={elapsedTime} sessionsCount={sessionsCount} />
+                    <Clock 
+                        elapsedTime={elapsedTime} 
+                        sessionsCount={sessionsCount}
+                        isBreak={isBreak}
+                        maxMinutes={isBreak ? BREAK_DURATION : WORK_DURATION}
+                    />
                     <ActionButton 
                         label='Stop session' 
                         type={ButtonType.Danger} 
                         icon={StopCircle}
                         onClick={stopSession}
                     />
-
-                    <StateCarrousel />
+                    {startTime && 
+                        <StateCarrousel 
+                            isBreak={isBreak}
+                            startTime={startTime}
+                        />
+                    }
                 </>
             }
             {!isSessionRunning &&
@@ -87,7 +121,6 @@ export default function Pomodoro() {
                     Start a new Pomodoro session
                 </div>
             }
-
         </div>
     );
 }

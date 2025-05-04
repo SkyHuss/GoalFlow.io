@@ -1,8 +1,15 @@
 import { ChevronRight, Coffee, Work } from '@mui/icons-material';
-import { useState } from 'react';
+import { DateTime } from 'luxon';
+
+import { useState, useEffect } from 'react';
 import './StateCarrousel.css';
 
-export default function StateCarrousel() {
+interface Props {
+    isBreak: boolean;
+    startTime: DateTime;
+}
+
+export default function StateCarrousel({ isBreak, startTime }: Props) {
     const initialItems = [<Work key="work0" />, <Coffee key="coffee0" />, <Work key="work1" />, <Coffee key="coffee1" />];
     const [items, setItems] = useState(initialItems);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,6 +19,20 @@ export default function StateCarrousel() {
         setItems((prevItems) => [...prevItems, nextItem]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
     };
+
+    const checkPhaseChange = () => {
+        const now = DateTime.now();
+        const diff = now.diff(startTime, ['minutes', 'seconds']);
+        const totalMinutes = Math.floor(diff.as('minutes'));
+        
+        if (totalMinutes >= 25) {
+            handleNext();
+        }
+    };
+
+    useEffect(() => {
+        checkPhaseChange();
+    }, [isBreak]);
 
     return (
         <div className="state-caroussel-container">
@@ -30,7 +51,7 @@ export default function StateCarrousel() {
                     {items.map((item, index) => (
                         <div className="state-caroussel-item-wrapper" key={index}>
                             <div
-                                className={`state-caroussel-item ${index === currentIndex ? 'active' : ''}`}
+                                className={`state-caroussel-item ${index === currentIndex ? 'active' : ''} ${isBreak ? 'break' : 'work'}`}
                             >
                                 {item}
                             </div>

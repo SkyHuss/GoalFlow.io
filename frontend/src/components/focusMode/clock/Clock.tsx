@@ -7,9 +7,11 @@ interface Props {
         seconds: number;
     };
     sessionsCount?: number;
+    maxMinutes: number;
+    isBreak?: boolean;
 }
 
-export default function Clock({ elapsedTime, sessionsCount }: Props) {
+export default function Clock({ elapsedTime, sessionsCount, isBreak, maxMinutes }: Props) {
 
     const [progress, setProgress] = useState(0);
 
@@ -32,7 +34,7 @@ export default function Clock({ elapsedTime, sessionsCount }: Props) {
     useEffect(() => {
         // Calculer la progression en pourcentage
         const totalElapsedSeconds = elapsedTime.minutes * 60 + elapsedTime.seconds;
-        const progressValue = (totalElapsedSeconds / 1800) * 100;
+        const progressValue = (totalElapsedSeconds / (maxMinutes * 60)) * 100;
         setProgress(progressValue);
     }, [elapsedTime]);
 
@@ -51,7 +53,7 @@ export default function Clock({ elapsedTime, sessionsCount }: Props) {
             {/*Cercle de progression de la session */}
             <svg width="300" height="300" viewBox="0 0 300 300" className='svg-clock-progress' style={{ '--progress': progress } as React.CSSProperties}>
                 <circle className="bg"></circle>
-                <circle className="fg"></circle>
+                <circle className="fg" stroke={!isBreak ? 'var(--primary-400)' : 'var(--info-400)'}></circle>
             </svg>
         </div>
     </div>
