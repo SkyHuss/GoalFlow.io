@@ -21,6 +21,8 @@ import SignUp from './pages/auth/signUp/SignUp';
 import AdminPanel from './pages/adminPanel/AdminPanel';
 import { useUserStore } from './hooks/useUserStore';
 import { useEffect, useState } from 'react';
+import Pomodoro from './components/focusMode/pomodoro/Pomodoro';
+import Timer from './components/focusMode/timer/Timer';
 
 interface ProtectedRouteProps {
   requiredRole?: string;
@@ -133,18 +135,30 @@ const router = createBrowserRouter([
             path: '/session-list',
             element: <SessionList />
           },
+          //Focus Mode links
           {
             path: '/focus',
-            element: <FocusMode />
+            element: <FocusMode />,
           },
+          {
+            path: 'focus/pomodoro',
+            element: <Pomodoro />
+          },
+          {
+            path: 'focus/timer',
+            element: <Timer />
+          },
+          //Analytics links
           {
             path: '/analytics',
             element: <Analytics />
           },
+          //history links
           {
             path: '/history',
             element: <History />
           },
+          //Design Workshop links
           {
             path: '/design',
             element: <DesignWorkshop />

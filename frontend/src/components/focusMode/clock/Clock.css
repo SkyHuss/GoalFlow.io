@@ -1,0 +1,62 @@
+.clock-container {
+    height: 400px;
+    width: 400px;
+    background-color: var(--secondary-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: solid 1px var(--primary-500);
+}
+
+.clock-container .clock-content {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    gap: 10px;
+}
+
+.clock-container .clock-content .sessions-count {
+    font-size: var(--h4);
+    font-weight: bold;
+}
+
+.clock-container .clock-content .time {
+    font-size: var(--h1);
+    font-weight: bold;
+}
+
+.clock-container .clock-content .svg-clock-progress {
+    position: absolute;
+    --size: 300px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+}
+
+.clock-container .clock-content .svg-clock-progress circle{
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+}
+
+.clock-container .clock-content .svg-clock-progress circle.bg {
+    stroke: var(--secondary-400);
+}
+
+.clock-container .clock-content .svg-clock-progress circle.fg {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+}
